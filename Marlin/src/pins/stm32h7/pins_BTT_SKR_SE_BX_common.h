@@ -34,6 +34,16 @@
 #define HAS_OTG_USB_HOST_SUPPORT                  // USB Flash Drive support
 //#define SWD_DEBUG                               // Use pins PA13 and PA14 on STM32H7 for the SWD debugger
 
+
+//MORPHLE PIN DEFs//
+#define MORPHLE_LIMIT                      false
+#define HAS_DOGHEEL_DETECTION              true
+#define SYNC_PIN                            PC13 //PE8 SKR2
+#ifdef HAS_DOGHEEL_DETECTION
+  #define DOGHEEL_PIN                         PC15
+#endif
+
+
 //
 // Limit Switches
 //

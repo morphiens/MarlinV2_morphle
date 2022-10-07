@@ -69,7 +69,9 @@ void MarlinHAL::init() {
   // So better safe than sorry here.
   constexpr int cpuFreq = F_CPU;
   UNUSED(cpuFreq);
-
+  SERIAL_ECHOLN(CUSTOM_MACHINE_NAME);
+  OUT_WRITE(SYNC_PIN, 0);
+  SET_INPUT_PULLDOWN(DOGHEEL_PIN);
   #if ENABLED(SDSUPPORT) && DISABLED(SDIO_SUPPORT) && (defined(SDSS) && SDSS != -1)
     OUT_WRITE(SDSS, HIGH); // Try to set SDSS inactive before any other SPI users start up
   #endif

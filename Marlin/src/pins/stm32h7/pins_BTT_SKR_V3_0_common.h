@@ -37,7 +37,7 @@
   #endif
 #endif
 
-#define USES_DIAG_JUMPERS
+// #define USES_DIAG_JUMPERS
 
 // Onboard I2C EEPROM
 #if EITHER(NO_EEPROM_SELECTED, I2C_EEPROM)
@@ -62,6 +62,15 @@
 #define Z_DIAG_PIN                          PC0   // Z-STOP
 #define E0_DIAG_PIN                         PC2   // E0DET
 #define E1_DIAG_PIN                         PA0   // E1DET
+
+
+//MORPHLE PIN DEFs//
+#define MORPHLE_LIMIT                      false
+#define HAS_DOGHEEL_DETECTION              true
+#define SYNC_PIN                            PC13 //PE8 SKR2
+#ifdef HAS_DOGHEEL_DETECTION
+  #define DOGHEEL_PIN                         PC15
+#endif
 
 //
 // Limit Switches

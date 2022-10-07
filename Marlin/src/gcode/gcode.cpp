@@ -347,10 +347,17 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
   // Handle a known command or reply "unknown command"
 
   switch (parser.command_letter) {
+    case 'U': switch (parser.codenum) {
+      case 1: U1(); break;
+      case 2: U2(); break;
+    }
+    break;
 
     case 'G': switch (parser.codenum) {
-
-      case 0: case 1:                                             // G0: Fast Move, G1: Linear Move
+      case 0: case 1: 
+        if(parser.seen('U')){
+          U1();
+        }                                            // G0: Fast Move, G1: Linear Move
         G0_G1(TERN_(HAS_FAST_MOVES, parser.codenum == 0)); break;
 
       #if ENABLED(ARC_SUPPORT) && DISABLED(SCARA)
