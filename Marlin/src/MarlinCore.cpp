@@ -1352,6 +1352,9 @@ void setup() {
   #endif
 
   SETUP_RUN(stepper.init());          // Init stepper. This enables interrupts!
+  X_ENABLE_WRITE( X_ENABLE_ON);
+  Y_ENABLE_WRITE( Y_ENABLE_ON);
+  Z_ENABLE_WRITE( Z_ENABLE_ON);
 
   #if HAS_SERVOS
     SETUP_RUN(servo_init());

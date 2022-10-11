@@ -181,6 +181,7 @@ void flashFirmware(const int16_t);
 typedef void (*systickCallback_t)(void);
 void systick_attach_callback(systickCallback_t cb);
 void HAL_SYSTICK_Callback();
+void reset_U1();
 
 extern volatile uint32_t systick_uptime_millis;
 
