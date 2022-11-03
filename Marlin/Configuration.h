@@ -134,7 +134,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens6"
+#define CUSTOM_MACHINE_NAME "Morpholens-1"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1588,9 +1588,9 @@
 // @section machine
 
 // The size of the printable area
-#define X_BED_SIZE 255
-#define Y_BED_SIZE 105
-#define Z_MAX_LEN -3.75
+#define X_BED_SIZE 63
+#define Y_BED_SIZE 76
+#define Z_MAX_LEN -3.5
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
