@@ -497,9 +497,32 @@ static void print_es_state(const bool is_hit, FSTR_P const flabel=nullptr) {
 
 #pragma GCC diagnostic pop
 
+static void print_morphle_limit_state(char* limit_name, uint8_t limit_pos){
+  
+  // for(int i = 0; i < 10; i++){
+    // SERIAL_ECHOF(F((char*)STR_X_MIN));
+    // SERIAL_ECHOPGM(": ");
+    // SERIAL_ECHOLNF(READ(LS1) ? F(STR_ENDSTOP_HIT) : F(STR_ENDSTOP_OPEN));
+  // }
+  SERIAL_ECHOF(F(limit_name));
+  SERIAL_ECHOPGM(": ");
+  SERIAL_ECHOLNF(READ(limit_pos) ? F(STR_ENDSTOP_HIT) : F(STR_ENDSTOP_OPEN));
+}
+
 void __O2 Endstops::report_states() {
   TERN_(BLTOUCH, bltouch._set_SW_mode());
   SERIAL_ECHOLNPGM(STR_M119_REPORT);
+  print_morphle_limit_state((char*)"x_home", x_home);
+  print_morphle_limit_state((char*)"y_home", y_home);
+  print_morphle_limit_state((char*)"z_home", z_home);
+  print_morphle_limit_state((char*)"x_rack1", x_rack1);
+  print_morphle_limit_state((char*)"x_rack2", x_rack2);
+  print_morphle_limit_state((char*)"y_rack1", y_rack1);
+  print_morphle_limit_state((char*)"y_onstage", y_onstage);
+  print_morphle_limit_state((char*)"y_understage", y_understage);
+  print_morphle_limit_state((char*)"backgate_home", backgate_home);
+  print_morphle_limit_state((char*)"frontgate_home", frontgate_home);
+
   #define ES_REPORT(S) print_es_state(READ(S##_PIN) != S##_ENDSTOP_INVERTING, F(STR_##S))
   #if HAS_X_MIN
     ES_REPORT(X_MIN);

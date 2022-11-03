@@ -350,6 +350,8 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
     case 'U': switch (parser.codenum) {
       case 1: U1(); break;
       case 2: U2(); break;
+      case 3: U3(); break;
+      case 4: U4(); break;
     }
     break;
 

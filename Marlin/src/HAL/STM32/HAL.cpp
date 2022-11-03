@@ -67,7 +67,7 @@ extern uint8_t strobe_sync_pulse;
 void reset_U1(){
 
 	if (strobe_sync_pulse) strobe_sync_pulse--;
-  else OUT_WRITE(SYNC_PIN, 0);
+  else OUT_WRITE(SYNC_PIN, 1);
 }
 
 // HAL initialization task
@@ -79,8 +79,7 @@ void MarlinHAL::init() {
   UNUSED(cpuFreq);
   SERIAL_ECHOLN(CUSTOM_MACHINE_NAME);
   SET_OUTPUT(SYNC_PIN);
-  OUT_WRITE(SYNC_PIN, 0);
-  SET_INPUT_PULLDOWN(DOGHEEL_PIN);
+  OUT_WRITE(SYNC_PIN, 1);
   #if ENABLED(SDSUPPORT) && DISABLED(SDIO_SUPPORT) && (defined(SDSS) && SDSS != -1)
     OUT_WRITE(SDSS, HIGH); // Try to set SDSS inactive before any other SPI users start up
   #endif

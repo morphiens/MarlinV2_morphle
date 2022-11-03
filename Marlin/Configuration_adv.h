@@ -834,18 +834,21 @@
 
 //#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }  // (mm) Backoff from endstops before sensorless homing
 
-#define X_BUMP              1
-#define Y_BUMP              1
-#define Z_BUMP              1/(Z_LEVER_REDUCTION*0.75) //because of lever in Z
+#define X_BUMP              2
+#define Y_BUMP              2
+#define Z_BUMP              2
 #define A_BUMP              2
-#define SENSOR_HALFWAY      2.5
-#define HOMING_X_BUMP       5.2-SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
-#define HOMING_Y_BUMP       6.9-SENSOR_HALFWAY
-#define HOMING_Z_BUMP       (11-SENSOR_HALFWAY)/(Z_LEVER_REDUCTION*0.75)
+#define B_BUMP              2
+#define SENSOR_HALFWAY      (2.5 - 0.25) //tolerance of 0.25mm added
+#define HOMING_X_BUMP       10 - SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
+#define HOMING_Y_BUMP       4 - SENSOR_HALFWAY
+#define HOMING_Z_BUMP       2.6-SENSOR_HALFWAY
+#define HOMING_A_BUMP       5.0-SENSOR_HALFWAY
+#define HOMING_B_BUMP       6.5-SENSOR_HALFWAY
 
-#define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP }       // (mm) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR { 2, 2, 1 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-#define HOMING_BACKOFF_POST_MM { X_BUMP, Y_BUMP, Z_BUMP }  // (mm) Backoff from endstops after homing
+#define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP, HOMING_A_BUMP, HOMING_B_BUMP  }       // (mm) Backoff from endstops after first bump
+#define HOMING_BUMP_DIVISOR { 2, 2, 2, 2, 2 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BACKOFF_POST_MM { X_BUMP, Y_BUMP, Z_BUMP, A_BUMP, B_BUMP  }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
@@ -1022,7 +1025,7 @@
 
 // @section motion
 
-#define AXIS_RELATIVE_MODES { false, false, false, false }
+#define AXIS_RELATIVE_MODES { false, false, false, false, false }
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -2720,9 +2723,9 @@
   #define INTERPOLATE      false
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       1200        // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS    X_MICROSTEPPING        // 0..256
+    #define X_CURRENT       X_TMC_CURRENT       // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME  X_CURRENT           // (mA) RMS current for sensorless homing
+    #define X_MICROSTEPS    X_MICROSTEPPING     // 0..256
     #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
     //#define X_INTERPOLATE  true      // Enable to override 'INTERPOLATE' for the X axis
@@ -2740,7 +2743,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       1200
+    #define Y_CURRENT       Y_TMC_CURRENT
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS    Y_MICROSTEPPING
     #define Y_RSENSE          0.11
@@ -2760,7 +2763,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       1200
+    #define Z_CURRENT       Z_TMC_CURRENT
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS    Z_MICROSTEPPING
     #define Z_RSENSE          0.11
@@ -2800,9 +2803,9 @@
   #endif
 
   #if AXIS_IS_TMC(I)
-    #define I_CURRENT      800
+    #define I_CURRENT      I_TMC_CURRENT
     #define I_CURRENT_HOME I_CURRENT
-    #define I_MICROSTEPS    16
+    #define I_MICROSTEPS    I_MICROSTEPPING
     #define I_RSENSE         0.11
     #define I_CHAIN_POS     -1
     //#define I_INTERPOLATE  true
@@ -2810,9 +2813,9 @@
   #endif
 
   #if AXIS_IS_TMC(J)
-    #define J_CURRENT      800
+    #define J_CURRENT      J_TMC_CURRENT
     #define J_CURRENT_HOME J_CURRENT
-    #define J_MICROSTEPS    16
+    #define J_MICROSTEPS    J_MICROSTEPPING
     #define J_RSENSE         0.11
     #define J_CHAIN_POS     -1
     //#define J_INTERPOLATE  true
