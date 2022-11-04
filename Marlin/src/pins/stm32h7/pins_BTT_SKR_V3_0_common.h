@@ -66,7 +66,7 @@
 
 //MORPHLE PIN DEFs//
 #define MORPHLE_LIMIT                      false
-#define HAS_DOGHEEL_DETECTION              true
+#define HAS_DOGHEEL_DETECTION              false
 #define SYNC_PIN                            PC13 //PE8 SKR2
 #ifdef HAS_DOGHEEL_DETECTION
   #define DOGHEEL_PIN                         PC15

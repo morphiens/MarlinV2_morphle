@@ -1079,6 +1079,9 @@
  */
 //#define DISTINCT_E_FACTORS
 
+#define X_TMC_CURRENT 1000
+#define Y_TMC_CURRENT 1000
+#define Z_TMC_CURRENT 1000
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
