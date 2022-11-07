@@ -9,7 +9,7 @@
 
 ### Variables directly related to board_identifier
 - boolean: none
-- integers: 
+- integers: none
 - constants: CUSTOM_MACHINE_NAME
 
 ## Functions concerned with board_identifier interface
