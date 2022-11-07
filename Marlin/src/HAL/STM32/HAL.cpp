@@ -64,12 +64,6 @@ uint16_t MarlinHAL::adc_result;
 
 extern uint8_t strobe_sync_pulse;
 
-void reset_U1(){
-
-	if (strobe_sync_pulse) strobe_sync_pulse--;
-  else OUT_WRITE(SYNC_PIN, 0);
-}
-
 // HAL initialization task
 void MarlinHAL::init() {
   // Ensure F_CPU is a constant expression.
