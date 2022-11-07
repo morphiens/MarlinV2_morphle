@@ -64,12 +64,6 @@ uint16_t MarlinHAL::adc_result;
 
 extern uint8_t strobe_sync_pulse;
 
-void reset_U1(){
-
-	if (strobe_sync_pulse) strobe_sync_pulse--;
-  else OUT_WRITE(SYNC_PIN, 1);
-}
-
 // HAL initialization task
 void MarlinHAL::init() {
   // Ensure F_CPU is a constant expression.
@@ -185,7 +179,6 @@ volatile uint32_t systick_uptime_millis = 0;
 systickCallback_t systick_user_callback;
 void systick_attach_callback(systickCallback_t cb) { systick_user_callback = cb; }
 void HAL_SYSTICK_Callback() {
-  reset_U1();
   systick_uptime_millis++;
   if (systick_user_callback) systick_user_callback();
 }

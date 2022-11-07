@@ -348,7 +348,6 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
   switch (parser.command_letter) {
     case 'U': switch (parser.codenum) {
-      case 1: U1(); break;
       case 2: U2(); break;
       case 3: U3(); break;
       case 4: U4(); break;
@@ -357,10 +356,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
     case 'G': switch (parser.codenum) {
       case 0: case 1: 
-        if(parser.seen('U')){
-          U1();
-        }                                            // G0: Fast Move, G1: Linear Move
-        G0_G1(TERN_(HAS_FAST_MOVES, parser.codenum == 0)); break;
+        G0_G1(TERN_(HAS_FAST_MOVES, parser.codenum == 0)); break; // G0: Fast Move, G1: Linear Move
 
       #if ENABLED(ARC_SUPPORT) && DISABLED(SCARA)
         case 2: case 3: G2_G3(parser.codenum == 2); break;        // G2: CW ARC, G3: CCW ARC
