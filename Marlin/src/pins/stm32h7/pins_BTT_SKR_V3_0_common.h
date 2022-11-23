@@ -73,7 +73,7 @@
 #define y_home                              PE12 // Y home
 #define z_home                              PE11 // Z home
 #define x_rack1                             PB1  // X rack-1
-#define x_rack2                             PE9 // X rack-2
+#define x_rack2                             PE9  // X rack-2
 #define y_rack1                             PE10 // Y rack-1
 #define y_onstage                           PE8  //  y_on-stage
 #define y_understage                        PB0  // y_under-stage

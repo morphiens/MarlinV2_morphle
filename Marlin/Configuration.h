@@ -1083,7 +1083,7 @@
 #define Y_TMC_CURRENT 1600
 #define Z_TMC_CURRENT 600
 #define I_TMC_CURRENT 600
-#define J_TMC_CURRENT 1200
+#define J_TMC_CURRENT 1000
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
@@ -1093,7 +1093,7 @@
 #define GATE_MICROSTEPPING 16
 #define SERVO_MICROSTEPPING 4
 #define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
-#define Y_BELT_PITCH  2
+#define Y_BELT_PITCH  2.0
 #define Y_PULLEY_TEETH 16       //total teeth count
 #define Z_LEADSCREW_PITCH 14.0    //mm_per_revolution
 #define GATE_LEADSCREW_PITCH 14.0
@@ -1554,9 +1554,9 @@
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
-#define INVERT_I_DIR false
-#define INVERT_J_DIR false
+#define INVERT_Z_DIR true
+#define INVERT_I_DIR true
+#define INVERT_J_DIR true
 //#define INVERT_K_DIR false
 
 // @section extruder

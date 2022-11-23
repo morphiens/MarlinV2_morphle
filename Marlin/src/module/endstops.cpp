@@ -510,7 +510,7 @@ static void print_morphle_limit_state(char* limit_name, uint8_t limit_pos){
 }
 
 void __O2 Endstops::report_states() {
-  TERN_(BLTOUCH, bltouch._set_SW_mode());
+  // TERN_(BLTOUCH, bltouch._set_SW_mode());
   SERIAL_ECHOLNPGM(STR_M119_REPORT);
   print_morphle_limit_state((char*)"x_home", x_home);
   print_morphle_limit_state((char*)"y_home", y_home);
@@ -523,7 +523,8 @@ void __O2 Endstops::report_states() {
   print_morphle_limit_state((char*)"backgate_home", backgate_home);
   print_morphle_limit_state((char*)"frontgate_home", frontgate_home);
 
-  #define ES_REPORT(S) print_es_state(READ(S##_PIN) != S##_ENDSTOP_INVERTING, F(STR_##S))
+  // #define ES_REPORT(S) print_es_state(READ(S##_PIN) != S##_ENDSTOP_INVERTING, F(STR_##S))
+  #define ES_REPORT(S) ((void)0)
   #if HAS_X_MIN
     ES_REPORT(X_MIN);
   #endif
@@ -614,7 +615,7 @@ void __O2 Endstops::report_states() {
     print_es_state(READ(FIL_RUNOUT1_PIN) != FIL_RUNOUT1_STATE, F(STR_FILAMENT));
   #endif
 
-  TERN_(BLTOUCH, bltouch._reset_SW_mode());
+  // TERN_(BLTOUCH, bltouch._reset_SW_mode());
   TERN_(JOYSTICK_DEBUG, joystick.report());
 
 } // Endstops::report_states
