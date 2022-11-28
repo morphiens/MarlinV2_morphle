@@ -26,6 +26,8 @@
 
 #include "../../inc/MarlinConfig.h"
 #include "../shared/Delay.h"
+#include "../../module/motion.h"
+#include "../../module/planner.h"
 
 #include "usb_serial.h"
 
