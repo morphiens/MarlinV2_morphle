@@ -94,10 +94,10 @@
 // ENDSTOPS
 //
 #define X_MIN_PIN                      x_home   // X endstop XHoming
-#define Y_MIN_PIN                      y_understage   // YOnStage
-#define Z_MIN_PIN                      z_home  // Z endstop
 #define X_MAX_PIN                      x_rack2  // Horizontal rack 2nd LS
+#define Y_MIN_PIN                      y_understage   // YOnStage
 #define Y_MAX_PIN                      y_home  // Y endstop YHoming (on top)
+#define Z_MIN_PIN                      z_home  // Z endstop
 #define I_MAX_PIN                      backgate_home   // Gate (endstop) LS for rack
 #define J_MAX_PIN                      frontgate_home
 

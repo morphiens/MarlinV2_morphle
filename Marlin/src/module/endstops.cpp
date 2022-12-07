@@ -448,22 +448,22 @@ void Endstops::event_handler() {
     #define ENDSTOP_HIT_TEST_J() _ENDSTOP_HIT_TEST(J,'J')
     #define ENDSTOP_HIT_TEST_K() _ENDSTOP_HIT_TEST(K,'K')
 
-    SERIAL_ECHO_START();
-    SERIAL_ECHOPGM(STR_ENDSTOPS_HIT);
-    NUM_AXIS_CODE(
-       ENDSTOP_HIT_TEST_X(),
-       ENDSTOP_HIT_TEST_Y(),
-       ENDSTOP_HIT_TEST_Z(),
-      _ENDSTOP_HIT_TEST(I,'I'),
-      _ENDSTOP_HIT_TEST(J,'J'),
-      _ENDSTOP_HIT_TEST(K,'K')
-    );
+    // SERIAL_ECHO_START();
+    // SERIAL_ECHOPGM(STR_ENDSTOPS_HIT);
+    // NUM_AXIS_CODE(
+    //    ENDSTOP_HIT_TEST_X(),
+    //    ENDSTOP_HIT_TEST_Y(),
+    //    ENDSTOP_HIT_TEST_Z(),
+    //   _ENDSTOP_HIT_TEST(I,'I'),
+    //   _ENDSTOP_HIT_TEST(J,'J'),
+    //   _ENDSTOP_HIT_TEST(K,'K')
+    // );
 
     #if USES_Z_MIN_PROBE_PIN
       #define P_AXIS Z_AXIS
       if (TEST(hit_state, Z_MIN_PROBE)) _ENDSTOP_HIT_ECHO(P, 'P');
     #endif
-    SERIAL_EOL();
+    // SERIAL_EOL();
 
     TERN_(HAS_STATUS_MESSAGE,
       ui.status_printf(0,
