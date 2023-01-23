@@ -131,6 +131,12 @@
   #endif
 #endif
 
+
+#ifndef I_STOP_PIN
+  #define I_STOP_PIN                      PC2   // Z-STOP
+#endif
+
+
 //
 // Z Probe (when not Z_MIN_PIN)
 //
@@ -150,7 +156,7 @@
 //
 // Filament Runout Sensor
 //
-#define FIL_RUNOUT_PIN                      PC2   // E0DET
+#define FIL_RUNOUT_PIN                      -1//PC2   // E0DET
 #define FIL_RUNOUT2_PIN                     PA0   // E1DET
 
 //
@@ -189,6 +195,14 @@
 #define Z_ENABLE_PIN                        PE0
 #ifndef Z_CS_PIN
   #define Z_CS_PIN                          PE1
+#endif
+
+
+#define I_STEP_PIN                       PD15
+#define I_DIR_PIN                        PD14
+#define I_ENABLE_PIN                     PC7
+#ifndef I_CS_PIN
+  #define I_CS_PIN                         PC6
 #endif
 
 #ifndef E0_STEP_PIN

@@ -134,7 +134,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens-6"
+#define CUSTOM_MACHINE_NAME "Hemolens-1"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -164,7 +164,7 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
+#define I_DRIVER_TYPE  A4988
 //#define J_DRIVER_TYPE  A4988
 //#define K_DRIVER_TYPE  A4988
 // #define E0_DRIVER_TYPE A4988
@@ -204,7 +204,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 1
+#define EXTRUDERS 0
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -975,7 +975,7 @@
 #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
 // #define USE_ZMIN_PLUG
-//#define USE_IMIN_PLUG
+#define USE_IMIN_PLUG
 //#define USE_JMIN_PLUG
 //#define USE_KMIN_PLUG
 //#define USE_XMAX_PLUG
@@ -1057,7 +1057,7 @@
 #define ENDSTOP_NOISE_THRESHOLD 4
 
 // Check for stuck or disconnected endstops during homing moves.
-//#define DETECT_BROKEN_ENDSTOP
+#define DETECT_BROKEN_ENDSTOP
 
 //=============================================================================
 //============================== Movement Settings ============================
@@ -1079,19 +1079,27 @@
  */
 //#define DISTINCT_E_FACTORS
 
+#define X_TMC_CURRENT 1200
+#define Y_TMC_CURRENT 1200
+#define Z_TMC_CURRENT 1000
+// #define I_TMC_CURRENT 600  //uses integrated stepper so cant set current from marlin
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
 #define Z_MICROSTEPPING 16
-#define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
-#define Y_LEADSCREW_PITCH 14.0    //mm_per_revolution
+#define A_MICROSTEPPING 16
+#define X_LEADSCREW_PITCH 8.0    //mm_per_revolution
+#define Y_LEADSCREW_PITCH 8.0    //mm_per_revolution
 #define Z_LEADSCREW_PITCH 8.0    //mm_per_revolution
 #define Z_LEVER_REDUCTION   42
+#define SWITCHER_GEAR_A 34.0
+#define SWITCHER_GEAR_PITCH 1.0
+#define SWITCHER_GEAR_B 112.0
 
 #define X_STEPS_PER_UNIT (X_MICROSTEPPING*motor_1_8_DEGREE)/(X_LEADSCREW_PITCH)
 #define Y_STEPS_PER_UNIT (Y_MICROSTEPPING*motor_1_8_DEGREE)/(Y_LEADSCREW_PITCH)
 #define Z_STEPS_PER_UNIT (Z_LEVER_REDUCTION*Z_MICROSTEPPING*motor_1_8_DEGREE)/(Z_LEADSCREW_PITCH)
-#define SWITCHER_STEPS_PER_UNIT 500
+#define SWITCHER_STEPS_PER_UNIT (A_MICROSTEPPING*motor_1_8_DEGREE)/(SWITCHER_GEAR_A*SWITCHER_GEAR_PITCH)
 
 /**
  * Default Axis Steps Per Unit (steps/mm)
@@ -1516,7 +1524,7 @@
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
-//#define I_ENABLE_ON 0
+#define I_ENABLE_ON 0
 //#define J_ENABLE_ON 0
 //#define K_ENABLE_ON 0
 
@@ -1525,7 +1533,7 @@
 #define DISABLE_X false
 #define DISABLE_Y false
 #define DISABLE_Z false
-//#define DISABLE_I false
+#define DISABLE_I false
 //#define DISABLE_J false
 //#define DISABLE_K false
 
@@ -1543,7 +1551,7 @@
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR true
-//#define INVERT_I_DIR false
+#define INVERT_I_DIR true
 //#define INVERT_J_DIR false
 //#define INVERT_K_DIR false
 
@@ -1581,16 +1589,17 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR 1
-//#define I_HOME_DIR -1
+#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
 //#define K_HOME_DIR -1
 
 // @section machine
 
 // The size of the printable area
-#define X_BED_SIZE 255
-#define Y_BED_SIZE 105
-#define Z_MAX_LEN -3.75
+#define X_BED_SIZE 36
+#define Y_BED_SIZE 129
+#define Z_MAX_LEN -3.45
+#define I_STROKE   ((360)*((float)(SWITCHER_GEAR_A)/(SWITCHER_GEAR_B)))
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1599,8 +1608,8 @@
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 0
-//#define I_MIN_POS 0
-//#define I_MAX_POS 50
+#define I_MIN_POS 0
+#define I_MAX_POS I_STROKE
 //#define J_MIN_POS 0
 //#define J_MAX_POS 50
 //#define K_MIN_POS 0
@@ -1965,13 +1974,13 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (75*60)
-#define HOMING_FEEDRATE_X  (75*60)
-#define HOMING_FEEDRATE_Y  (75*60)
-#define HOMING_FEEDRATE_Z  (0.5*60)
-#define HOMING_FEEDRATE_A (10*60)
+#define HOMING_FEEDRATE_XY (60*60)
+#define HOMING_FEEDRATE_X  (60*60)
+#define HOMING_FEEDRATE_Y  (60*60)
+#define HOMING_FEEDRATE_Z  ((60/Z_LEVER_REDUCTION)*60)
+#define HOMING_FEEDRATE_A (30*60)
 
-#define HOMING_FEEDRATE_MM_M { HOMING_FEEDRATE_X, HOMING_FEEDRATE_Y, HOMING_FEEDRATE_Z}
+#define HOMING_FEEDRATE_MM_M { HOMING_FEEDRATE_X, HOMING_FEEDRATE_Y, HOMING_FEEDRATE_Z, HOMING_FEEDRATE_A}
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
