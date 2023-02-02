@@ -495,11 +495,20 @@ static void print_es_state(const bool is_hit, FSTR_P const flabel=nullptr) {
   SERIAL_ECHOLNF(is_hit ? F(STR_ENDSTOP_HIT) : F(STR_ENDSTOP_OPEN));
 }
 
+static void print_morphle_limit_state(char* limit_name, uint8_t limit_pos){
+  
+  SERIAL_ECHOF(F(limit_name));
+  SERIAL_ECHOPGM(": ");
+  SERIAL_ECHOLNF(READ(limit_pos) ? F(STR_ENDSTOP_HIT) : F(STR_ENDSTOP_OPEN));
+}
+
 #pragma GCC diagnostic pop
+
 
 void __O2 Endstops::report_states() {
   TERN_(BLTOUCH, bltouch._set_SW_mode());
   SERIAL_ECHOLNPGM(STR_M119_REPORT);
+  print_morphle_limit_state((char*)"Dogheel", DOGHEEL_PIN);
   #define ES_REPORT(S) print_es_state(READ(S##_PIN) != S##_ENDSTOP_INVERTING, F(STR_##S))
   #if HAS_X_MIN
     ES_REPORT(X_MIN);
