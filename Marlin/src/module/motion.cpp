@@ -1678,9 +1678,9 @@ void prepare_line_to_destination() {
   }
 
   void get_endstop_distance(const AxisEnum axis, uint8_t limit_name){
-  
+    endstops.enable(true); // Enable endstops for next homing move
     homeaxis(axis);
-    delay(500);
+    delay(250);
 
     int DEFAULT_AXIS_MAX_LENGTH[] = {X_BED_SIZE, -Y_BED_SIZE, Z_MAX_LEN, I_STROKE, J_STROKE};
     abce_pos_t target = planner.get_axis_positions_mm();
@@ -1697,7 +1697,8 @@ void prepare_line_to_destination() {
     SERIAL_ECHO("Distance: ");
     report_real_position();
 
-    delay(500);
+    delay(250);
+    endstops.enable(true); // Enable endstops for next homing move
     homeaxis(axis); //added to return back to home position after calculating distance
   }  
   /**
