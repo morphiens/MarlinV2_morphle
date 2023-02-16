@@ -838,8 +838,8 @@
 #define Y_BUMP              1
 #define Z_BUMP              1/(Z_LEVER_REDUCTION*0.75) //because of lever in Z
 #define SENSOR_HALFWAY      2.5
-#define HOMING_X_BUMP       5.2-SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
-#define HOMING_Y_BUMP       6.9-SENSOR_HALFWAY
+#define HOMING_X_BUMP       11-SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
+#define HOMING_Y_BUMP       6.5-SENSOR_HALFWAY
 #define HOMING_Z_BUMP       (10-SENSOR_HALFWAY)/(Z_LEVER_REDUCTION*0.75)
 
 #define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP }       // (mm) Backoff from endstops after first bump
@@ -2719,7 +2719,7 @@
   #define INTERPOLATE      false
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       1000        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       X_TMC_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS    X_MICROSTEPPING        // 0..256
     #define X_RSENSE          0.11
@@ -2739,7 +2739,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       1000
+    #define Y_CURRENT       Y_TMC_CURRENT
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS    Y_MICROSTEPPING
     #define Y_RSENSE          0.11
@@ -2759,7 +2759,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       1000
+    #define Z_CURRENT       Z_TMC_CURRENT
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS    Z_MICROSTEPPING
     #define Z_RSENSE          0.11

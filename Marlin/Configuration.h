@@ -134,7 +134,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens-6"
+#define CUSTOM_MACHINE_NAME "Maximus"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1078,13 +1078,15 @@
  * total number of extruders, the last value applies to the rest.
  */
 //#define DISTINCT_E_FACTORS
-
+#define X_TMC_CURRENT 1200
+#define Y_TMC_CURRENT 1200
+#define Z_TMC_CURRENT 1000
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
 #define Z_MICROSTEPPING 16
-#define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
-#define Y_LEADSCREW_PITCH 14.0    //mm_per_revolution
+#define X_LEADSCREW_PITCH 8.0    //mm_per_revolution
+#define Y_LEADSCREW_PITCH 8.0    //mm_per_revolution
 #define Z_LEADSCREW_PITCH 8.0    //mm_per_revolution
 #define Z_LEVER_REDUCTION   42
 
@@ -1105,7 +1107,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 180, 180, 1 }
+#define DEFAULT_MAX_FEEDRATE          { 100, 100, 1 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1588,9 +1590,9 @@
 // @section machine
 
 // The size of the printable area
-#define X_BED_SIZE 255
-#define Y_BED_SIZE 92
-#define Z_MAX_LEN -3.75
+#define X_BED_SIZE 270
+#define Y_BED_SIZE 170
+#define Z_MAX_LEN -4.4
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
