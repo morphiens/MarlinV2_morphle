@@ -1085,8 +1085,8 @@
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
 #define Z_MICROSTEPPING 16
-#define X_LEADSCREW_PITCH 8.0    //mm_per_revolution
-#define Y_LEADSCREW_PITCH 8.0    //mm_per_revolution
+#define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
+#define Y_LEADSCREW_PITCH 14.0    //mm_per_revolution
 #define Z_LEADSCREW_PITCH 8.0    //mm_per_revolution
 #define Z_LEVER_REDUCTION   42
 
