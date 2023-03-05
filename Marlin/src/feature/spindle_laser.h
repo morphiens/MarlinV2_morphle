@@ -40,13 +40,7 @@
 #define PCT_TO_PWM(X) ((X) * 255 / 100)
 #define PCT_TO_SERVO(X) ((X) * 180 / 100)
 
-// Laser/Cutter operation mode
-enum CutterMode : int8_t {
-  CUTTER_MODE_ERROR = -1,
-  CUTTER_MODE_STANDARD,     // M3 power is applied directly and waits for planner moves to sync.
-  CUTTER_MODE_CONTINUOUS,   // M3 or G1/2/3 move power is controlled within planner blocks, set with 'M3 I', cleared with 'M5 I'.
-  CUTTER_MODE_DYNAMIC       // M4 laser power is proportional to the feed rate, set with 'M4 I', cleared with 'M5 I'.
-};
+// #define _MAP(N,S1,S2,D1,D2) ((N)*_MAX((D2)-(D1),0)/_MAX((S2)-(S1),1)+(D1))
 
 class SpindleLaser {
 public:
@@ -197,19 +191,16 @@ public:
    *    This mode allows a global power shutdown action to occur.
    */
   static void set_enabled(const bool enable) {
-    switch (cutter_mode) {
-      case CUTTER_MODE_STANDARD:
-        apply_power(enable ? TERN(SPINDLE_LASER_USE_PWM, (power ?: (unitPower ? upower_to_ocr(cpwr_to_upwr(SPEED_POWER_STARTUP)) : 0)), 255) : 0);
-        break;
-      case CUTTER_MODE_CONTINUOUS:
-        TERN_(LASER_FEATURE, set_inline_enabled(enable));
-        break;
-      case CUTTER_MODE_DYNAMIC:
-        TERN_(LASER_FEATURE, set_inline_enabled(enable));
-        break;
-      case CUTTER_MODE_ERROR: // Error mode, no enable and kill power.
-        enable_state = false;
-        apply_power(0);
+    uint8_t value = 0;
+    if (enable) {
+      #if ENABLED(SPINDLE_LASER_USE_PWM)
+        if (power)
+          value = power;
+        else if (unitPower)
+          value = upower_to_ocr(cpwr_to_upwr(SPEED_POWER_STARTUP));
+      #else
+        value = 255;
+      #endif
     }
     #if SPINDLE_LASER_ENA_PIN
       WRITE(SPINDLE_LASER_ENA_PIN, enable ? SPINDLE_LASER_ACTIVE_STATE : !SPINDLE_LASER_ACTIVE_STATE);
@@ -277,27 +268,16 @@ public:
     #endif
 
     #if ENABLED(LASER_FEATURE)
-      // Toggle the laser on/off with menuPower. Apply SPEED_POWER_STARTUP if it was 0 on entry.
-      static void laser_menu_toggle(const bool state) {
-        set_enabled(state);
-        if (state) {
-          if (!menuPower) menuPower = cpwr_to_upwr(SPEED_POWER_STARTUP);
-          power = upower_to_ocr(menuPower);
-          apply_power(power);
-        }
-      }
-
       /**
        * Test fire the laser using the testPulse ms duration
        * Also fires with any PWM power that was previous set
        * If not set defaults to 80% power
        */
       static void test_fire_pulse() {
-        BUZZ(30, 3000);
-        cutter_mode = CUTTER_MODE_STANDARD;// Menu needs standard mode.
-        laser_menu_toggle(true);           // Laser On
+        TERN_(HAS_BEEPER, buzzer.tone(30, 3000));
+        enable_forward();                  // Turn Laser on (Spindle speak but same funct)
         delay(testPulse);                  // Delay for time set by user in pulse ms menu screen.
-        laser_menu_toggle(false);          // Laser Off
+        disable();                         // Turn laser off
       }
     #endif // LASER_FEATURE
 
@@ -305,22 +285,31 @@ public:
 
   #if ENABLED(LASER_FEATURE)
 
-    // Dynamic mode rate calculation
-    static uint8_t calc_dynamic_power() {
-      if (feedrate_mm_m > 65535) return 255;         // Too fast, go always on
-      uint16_t rate = uint16_t(feedrate_mm_m);       // 16 bits from the G-code parser float input
-      rate >>= 8;                                    // Take the G-code input e.g. F40000 and shift off the lower bits to get an OCR value from 1-255
-      return uint8_t(rate);
+    // Force disengage planner power control
+    static void inline_disable() {
+      isReady = false;
+      unitPower = 0;
+      planner.laser_inline.status.isPlanned = false;
+      planner.laser_inline.status.isEnabled = false;
+      planner.laser_inline.power = 0;
     }
 
     // Inline modes of all other functions; all enable planner inline power control
-    static void set_inline_enabled(const bool enable) { planner.laser_inline.status.isEnabled = enable;}
+   static void set_inline_enabled(const bool enable) {
+      if (enable)
+        inline_power(255);
+      else {
+        isReady = false;
+        unitPower = menuPower = 0;
+        planner.laser_inline.status.isPlanned = false;
+        TERN(SPINDLE_LASER_USE_PWM, inline_ocr_power, inline_power)(0);
+      }
+    }
 
     // Set the power for subsequent movement blocks
     static void inline_power(const cutter_power_t cpwr) {
       TERN(SPINDLE_LASER_USE_PWM, power = planner.laser_inline.power = cpwr, planner.laser_inline.power = cpwr > 0 ? 255 : 0);
-    }
-
+    } 
   #endif // LASER_FEATURE
 
   static void kill() { disable(); }

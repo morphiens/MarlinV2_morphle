@@ -21,6 +21,15 @@
  */
 #pragma once
 
+<<<<<<<< HEAD:Marlin/src/pins/stm32h7/pins_BTT_SKR_SE_BX_V3.h
 #define BOARD_INFO_NAME      "BTT SKR SE BX V3.0"
 
 #include "pins_BTT_SKR_SE_BX_common.h"
+========
+//
+// Board-specific options need to be defined before HAL.h
+//
+#if MB(MKS_TINYBEE)
+  #define MAX_EXPANDER_BITS 24  // TinyBee has 3 x HC595
+#endif
+>>>>>>>> 2.1.1:Marlin/src/HAL/ESP32/inc/Conditionals_adv.h

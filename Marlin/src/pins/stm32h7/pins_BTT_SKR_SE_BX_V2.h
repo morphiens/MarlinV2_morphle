@@ -23,6 +23,16 @@
 
 #define BOARD_INFO_NAME      "BTT SKR SE BX V2.0"
 
+<<<<<<<< HEAD:Marlin/src/pins/stm32h7/pins_BTT_SKR_SE_BX_V2.h
 #define SAFE_POWER_PIN                      PI11
+========
+struct LowpassFilter {
+  uint64_t data_delay = 0;
+  uint16_t update(uint16_t value) {
+    data_delay += value - (data_delay >> 6);
+    return uint16_t(data_delay >> 6);
+  }
+};
+>>>>>>>> 2.1.1:Marlin/src/HAL/LINUX/hardware/Heater.h
 
 #include "pins_BTT_SKR_SE_BX_common.h"
