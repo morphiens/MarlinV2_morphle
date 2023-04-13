@@ -21,9 +21,7 @@
  */
 #pragma once
 
-#if NOT_TARGET(STM32H7)
-  #error "Oops! Select an STM32H7 board in 'Tools > Board.'"
-#endif
+#include "env_validate.h"
 
 // If you have the BigTreeTech driver expansion module, enable BTT_MOTOR_EXPANSION
 // https://github.com/bigtreetech/BTT-Expansion-module/tree/master/BTT%20EXP-MOT
@@ -37,7 +35,7 @@
   #endif
 #endif
 
-#define USES_DIAG_JUMPERS
+// #define USES_DIAG_JUMPERS
 
 // Onboard I2C EEPROM
 #if EITHER(NO_EEPROM_SELECTED, I2C_EEPROM)
@@ -64,6 +62,19 @@
 #define E1_DIAG_PIN                         PA0   // E1DET
 
 //
+
+
+//MORPHLE PIN DEFs//
+#define MORPHLE_LIMIT                      false
+#define HAS_DOGHEEL_DETECTION              false
+#define SYNC_PIN                            PC13 //PE8 SKR2
+#ifdef HAS_DOGHEEL_DETECTION
+  #define DOGHEEL_PIN                         PC2
+#endif
+
+// =======
+
+
 // Limit Switches
 //
 #ifdef X_STALL_SENSITIVITY
@@ -125,9 +136,9 @@
 //
 // Z Probe (when not Z_MIN_PIN)
 //
-#ifndef Z_MIN_PROBE_PIN
-  #define Z_MIN_PROBE_PIN                   PC13
-#endif
+// #ifndef Z_MIN_PROBE_PIN
+//   #define Z_MIN_PROBE_PIN                   PC13
+// #endif
 
 //
 // Probe enable
@@ -241,8 +252,8 @@
 #ifndef HEATER_BED_PIN
   #define HEATER_BED_PIN                    PD7   // Hotbed
 #endif
-#ifndef FAN_PIN
-  #define FAN_PIN                           PB7   // Fan0
+#ifndef FAN0_PIN
+  #define FAN0_PIN                          PB7   // Fan0
 #endif
 
 #if HAS_CUTTER
@@ -262,18 +273,16 @@
 #endif // SPINDLE_FEATURE || LASER_FEATURE
 
 //
-// Software SPI pins for TMC2130 stepper drivers
+// SPI pins for TMC2130 stepper drivers
 //
-#if ENABLED(TMC_USE_SW_SPI)
-  #ifndef TMC_SW_MOSI
-    #define TMC_SW_MOSI                     PE13
-  #endif
-  #ifndef TMC_SW_MISO
-    #define TMC_SW_MISO                     PE15
-  #endif
-  #ifndef TMC_SW_SCK
-    #define TMC_SW_SCK                      PE14
-  #endif
+#ifndef TMC_SPI_MOSI
+  #define TMC_SPI_MOSI                      PE13
+#endif
+#ifndef TMC_SPI_MISO
+  #define TMC_SPI_MISO                      PE15
+#endif
+#ifndef TMC_SPI_SCK
+  #define TMC_SPI_SCK                       PE14
 #endif
 
 #if HAS_TMC_UART

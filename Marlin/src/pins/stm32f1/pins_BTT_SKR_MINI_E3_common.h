@@ -100,8 +100,8 @@
 #define HEATER_0_PIN                        PC8   // "HE"
 #define HEATER_BED_PIN                      PC9   // "HB"
 
-#ifndef FAN_PIN
-  #define FAN_PIN                           PA8   // "FAN0"
+#ifndef FAN0_PIN
+  #define FAN0_PIN                          PA8   // "FAN0"
 #endif
 
 //
@@ -315,8 +315,8 @@
      *   EXP1-2 ----------- EXP1-9   ENC
      *   EXP1-1 ----------- EXP1-7   LCD_A0
      *
-     *    TFT-2 ----------- EXP2-5   SCK
-     *    TFT-3 ----------- EXP2-9   MOSI
+     *    TFT-2 ----------- EXP2-5   MOSI
+     *    TFT-3 ----------- EXP2-9   SCK
      *
      * for backlight configuration see steps 2 (V2.1) and 3 in https://wiki.fysetc.com/Mini12864_Panel/
      */

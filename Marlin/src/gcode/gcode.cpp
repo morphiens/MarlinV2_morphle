@@ -75,8 +75,8 @@ GcodeSuite gcode;
 millis_t GcodeSuite::previous_move_ms = 0,
          GcodeSuite::max_inactive_time = 0;
 
-#if HAS_DISABLE_INACTIVE_AXIS
-  millis_t GcodeSuite::stepper_inactive_time = SEC_TO_MS(DEFAULT_STEPPER_DEACTIVE_TIME);
+#if HAS_DISABLE_IDLE_AXES
+  millis_t GcodeSuite::stepper_inactive_time = SEC_TO_MS(DEFAULT_STEPPER_TIMEOUT_SEC);
 #endif
 
 // Relative motion mode for each logical axis
@@ -348,12 +348,30 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
   #endif
 
   // Handle a known command or reply "unknown command"
-
+  
   switch (parser.command_letter) {
+    case 'U': switch (parser.codenum) {
+      SERIAL_ECHOLN("Print kar nam1");
+      case 1: U1(); break;
+      case 2: U2(); break;
+    }
+    break;
+    case 'u': switch (parser.codenum){
+      SERIAL_ECHOLN("Print kar nam2");
+      case 1: U1(); break;
+      case 2: U2(); break;
+
+    }
+    break;
 
     case 'G': switch (parser.codenum) {
 
-      case 0: case 1:                                             // G0: Fast Move, G1: Linear Move
+      case 0: case 1: 
+        if(parser.seen('U')){
+          SERIAL_ECHOLN("Print kar nam3");
+          U1();
+        }
+        // G0: Fast Move, G1: Linear Move
         G0_G1(TERN_(HAS_FAST_MOVES, parser.codenum == 0)); break;
 
       #if ENABLED(ARC_SUPPORT) && DISABLED(SCARA)
@@ -590,7 +608,8 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       #if HAS_FAN
         case 106: M106(); break;                                  // M106: Fan On
-        case 107: M107(); break;                                  // M107: Fan Off
+        case 107: M107(); break;  
+        case 000: U2(); break;                                // M107: Fan Off
       #endif
 
       case 110: M110(); break;                                    // M110: Set Current Line Number

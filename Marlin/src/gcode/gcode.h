@@ -319,6 +319,8 @@
  * M995 - Touch screen calibration for TFT display
  * M997 - Perform in-application firmware update
  * M999 - Restart after being stopped by error
+ * U2   - Print Machine Name 
+ * G0 U1 - Send Strobe Data  
  *
  * D... - Custom Development G-code. Add hooks to 'gcode_D.cpp' for developers to test features. (Requires MARLIN_DEV_MODE)
  *        D576 - Set buffer monitoring options. (Requires BUFFER_MONITORING)
@@ -403,7 +405,7 @@ public:
   }
   FORCE_INLINE static void reset_stepper_timeout(const millis_t ms=millis()) { previous_move_ms = ms; }
 
-  #if HAS_DISABLE_INACTIVE_AXIS
+  #if HAS_DISABLE_IDLE_AXES
     static millis_t stepper_inactive_time;
     FORCE_INLINE static bool stepper_inactive_timeout(const millis_t ms=millis()) {
       return ELAPSED(ms, previous_move_ms + stepper_inactive_time);
@@ -476,6 +478,9 @@ public:
 private:
 
   friend class MarlinSettings;
+  #if ENABLED(ARC_SUPPORT)
+    friend void plan_arc(const xyze_pos_t&, const ab_float_t&, const bool, const uint8_t);
+  #endif
 
   #if ENABLED(MARLIN_DEV_MODE)
     static void D(const int16_t dcode);
@@ -724,6 +729,7 @@ private:
   #if HAS_FAN
     static void M106();
     static void M107();
+    
   #endif
 
   #if DISABLED(EMERGENCY_PARSER)
@@ -1248,7 +1254,9 @@ private:
   #endif
 
   static void T(const int8_t tool_index);
-
+  static void U1();
+  static void U2();
+  
 };
 
 extern GcodeSuite gcode;
