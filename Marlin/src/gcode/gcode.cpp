@@ -352,25 +352,19 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
   switch (parser.command_letter) {
     case 'U': switch (parser.codenum) {
       SERIAL_ECHOLN("Print kar nam1");
-      case 1: U1(); break;
       case 2: U2(); break;
-    }
-    break;
-    case 'u': switch (parser.codenum){
-      SERIAL_ECHOLN("Print kar nam2");
-      case 1: U1(); break;
-      case 2: U2(); break;
-
+      case 3: U3(); break;
+      case 4: U4(); break;
     }
     break;
 
     case 'G': switch (parser.codenum) {
 
       case 0: case 1: 
-        if(parser.seen('U')){
-          SERIAL_ECHOLN("Print kar nam3");
-          U1();
-        }
+        // if(parser.seen('U')){
+        //   // SERIAL_ECHOLN("Print kar nam3");
+        //   U1();
+        // }
         // G0: Fast Move, G1: Linear Move
         G0_G1(TERN_(HAS_FAST_MOVES, parser.codenum == 0)); break;
 

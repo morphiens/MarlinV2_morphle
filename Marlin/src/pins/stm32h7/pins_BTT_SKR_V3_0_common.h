@@ -65,15 +65,43 @@
 
 
 //MORPHLE PIN DEFs//
-#define MORPHLE_LIMIT                      false
-#define HAS_DOGHEEL_DETECTION              false
-#define SYNC_PIN                            PC13 //PE8 SKR2
-#ifdef HAS_DOGHEEL_DETECTION
-  #define DOGHEEL_PIN                         PC2
-#endif
+#define MORPHLE_LIMIT                       true
+#define HAS_CASSETTE_DETECTION              true
+#define SYNC_PIN                            PC13
 
+#define x_home                              PC5  // X home
+#define y_home                              PE12 // Y home
+#define z_home                              PE11 // Z home
+#define x_rack1                             PB1  // X rack-1
+#define x_rack2                             PE9  // X rack-2
+#define y_rack1                             PE10 // Y rack-1
+#define y_onstage                           PE8  //  y_on-stage
+#define y_understage                        PB0  // y_under-stage
+#define backgate_home                       PC2  // backgate home
+#define frontgate_home                      PA0  // frontgate home
 // =======
 
+/**
+ *                         ------
+ *                     5V | 1 2  | GND
+ *         (YHoming) PE12 | 3 4  | PE11 (ZHoming)
+ *          (YRack1) PE10 | 5 6 |  PE9 (Xrack2)
+ *         (YOnStage) PE8 | 7 8  | PB1  (Xrack1)
+ *      (YUnderStage) PB0 | 9 10 | PC5  (XHoming)
+ *                         ------
+ *                          EXP1
+ */
+
+//EndStops
+
+
+#define X_MIN_PIN                      x_home   // X endstop XHoming
+#define X_MAX_PIN                      x_rack2  // Horizontal rack 2nd LS
+#define Y_MIN_PIN                      y_understage   // YOnStage
+#define Y_MAX_PIN                      y_home  // Y endstop YHoming (on top)
+#define Z_MIN_PIN                      z_home  // Z endstop
+#define I_MAX_PIN                      backgate_home   // Gate (endstop) LS for rack
+#define J_MAX_PIN                      frontgate_home
 
 // Limit Switches
 //
@@ -193,30 +221,30 @@
   #define Z_CS_PIN                          PE1
 #endif
 
-#ifndef E0_STEP_PIN
-  #define E0_STEP_PIN                       PD15
+#ifndef I_STEP_PIN
+  #define I_STEP_PIN                       PD15
 #endif
-#ifndef E0_DIR_PIN
-  #define E0_DIR_PIN                        PD14
+#ifndef I_DIR_PIN
+  #define I_DIR_PIN                        PD14
 #endif
-#ifndef E0_ENABLE_PIN
-  #define E0_ENABLE_PIN                     PC7
+#ifndef I_ENABLE_PIN
+  #define I_ENABLE_PIN                     PC7
 #endif
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN                         PC6
+#ifndef I_CS_PIN
+  #define I_CS_PIN                         PC6
 #endif
 
-#ifndef E1_STEP_PIN
-  #define E1_STEP_PIN                       PD11
+#ifndef J_STEP_PIN
+  #define J_STEP_PIN                       PD11
 #endif
-#ifndef E1_DIR_PIN
+#ifndef J_DIR_PIN
   #define E1_DIR_PIN                        PD10
 #endif
-#ifndef E1_ENABLE_PIN
-  #define E1_ENABLE_PIN                     PD13
+#ifndef J_ENABLE_PIN
+  #define J_ENABLE_PIN                     PD13
 #endif
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN                         PD12
+#ifndef J_CS_PIN
+  #define J_CS_PIN                         PD12
 #endif
 
 //
@@ -316,11 +344,11 @@
   #define Z_SERIAL_TX_PIN                   PE1
   #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
 
-  #define E0_SERIAL_TX_PIN                  PC6
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
+  #define I_SERIAL_TX_PIN                  PC6
+  #define I_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
-  #define E1_SERIAL_TX_PIN                  PD12
-  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
+  #define J_SERIAL_TX_PIN                  PD12
+  #define J_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE                    19200
