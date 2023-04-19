@@ -342,7 +342,7 @@ void Endstops::event_handler() {
       #define P_AXIS Z_AXIS
       if (TEST(hit_state, Z_MIN_PROBE)) _ENDSTOP_HIT_ECHO(P, 'P');
     #endif
-    SERIAL_EOL();
+    // SERIAL_EOL();
 
     TERN_(HAS_STATUS_MESSAGE,
       ui.status_printf(0,
@@ -387,10 +387,21 @@ static void print_morphle_limit_state(char* limit_name, uint8_t limit_pos){
 #pragma GCC diagnostic pop
 
 void __O2 Endstops::report_states() {
-  TERN_(BLTOUCH, bltouch._set_SW_mode());
+  // TERN_(BLTOUCH, bltouch._set_SW_mode());
   SERIAL_ECHOLNPGM(STR_M119_REPORT);
+  print_morphle_limit_state((char*)"x_home", x_home);
+  print_morphle_limit_state((char*)"y_home", y_home);
+  print_morphle_limit_state((char*)"z_home", z_home);
+  print_morphle_limit_state((char*)"x_rack1", x_rack1);
+  print_morphle_limit_state((char*)"x_rack2", x_rack2);
+  print_morphle_limit_state((char*)"y_rack1", y_rack1);
+  print_morphle_limit_state((char*)"y_onstage", y_onstage);
+  print_morphle_limit_state((char*)"y_understage", y_understage);
+  print_morphle_limit_state((char*)"backgate_home", backgate_home);
+  print_morphle_limit_state((char*)"frontgate_home", frontgate_home);
   print_morphle_limit_state((char*)"Dogheel", DOGHEEL_PIN);
-  #define ES_REPORT(S) print_es_state(READ_ENDSTOP(S##_PIN) == S##_ENDSTOP_HIT_STATE, F(STR_##S))
+  // #define ES_REPORT(S) print_es_state(READ_ENDSTOP(S##_PIN) == S##_ENDSTOP_HIT_STATE, F(STR_##S))
+  #define ES_REPORT(S) ((void)0)
   #if HAS_X_MIN
     ES_REPORT(X_MIN);
   #endif
@@ -499,7 +510,7 @@ void __O2 Endstops::report_states() {
     print_es_state(READ(FIL_RUNOUT1_PIN) != FIL_RUNOUT1_STATE, F(STR_FILAMENT));
   #endif
 
-  TERN_(BLTOUCH, bltouch._reset_SW_mode());
+  // TERN_(BLTOUCH, bltouch._reset_SW_mode());
   TERN_(JOYSTICK_DEBUG, joystick.report());
 
 } // Endstops::report_states

@@ -65,73 +65,102 @@
 
 
 //MORPHLE PIN DEFs//
-#define MORPHLE_LIMIT                      false
-#define HAS_DOGHEEL_DETECTION              false
-#define SYNC_PIN                            PC13 //PE8 SKR2
-#ifdef HAS_DOGHEEL_DETECTION
-  #define DOGHEEL_PIN                         PC2
-#endif
+#define MORPHLE_LIMIT                       true
+#define HAS_CASSETTE_DETECTION              true
+#define SYNC_PIN                            PC13
+
+#define x_home                              PC5  // X home
+#define y_home                              PE12 // Y home
+#define z_home                              PE11 // Z home
+#define x_rack1                             PB1  // X rack-1
+#define x_rack2                             PE9  // X rack-2
+#define y_rack1                             PE10 // Y rack-1
+#define y_onstage                           PE8  //  y_on-stage
+#define y_understage                        PB0  // y_under-stage
+#define backgate_home                       PC2  // backgate home
+#define frontgate_home                      PA0  // frontgate home
 
 // =======
+/**
+ *                         ------
+ *                     5V | 1 2  | GND
+ *         (YHoming) PE12 | 3 4  | PE11 (ZHoming)
+ *          (YRack1) PE10 | 5 6 |  PE9 (Xrack2)
+ *         (YOnStage) PE8 | 7 8  | PB1  (Xrack1)
+ *      (YUnderStage) PB0 | 9 10 | PC5  (XHoming)
+ *                         ------
+ *                          EXP1
+ */
+
+// ENDSTOPS
+//
+#define X_MIN_PIN                      x_home   // X endstop XHoming
+#define X_MAX_PIN                      x_rack2  // Horizontal rack 2nd LS
+#define Y_MIN_PIN                      y_understage   // YOnStage
+#define Y_MAX_PIN                      y_home  // Y endstop YHoming (on top)
+#define Z_MIN_PIN                      z_home  // Z endstop
+#define I_MAX_PIN                      backgate_home   // Gate (endstop) LS for rack
+#define J_MAX_PIN                      frontgate_home
+
 
 
 // Limit Switches
 //
-#ifdef X_STALL_SENSITIVITY
-  #define X_STOP_PIN                  X_DIAG_PIN
-  #if X_HOME_TO_MIN
-    #define X_MAX_PIN                       PC2   // E0DET
-  #else
-    #define X_MIN_PIN                       PC2   // E0DET
-  #endif
-#elif ENABLED(X_DUAL_ENDSTOPS)
-  #ifndef X_MIN_PIN
-    #define X_MIN_PIN                       PC1   // X-STOP
-  #endif
-  #ifndef X_MAX_PIN
-    #define X_MAX_PIN                       PC2   // E0DET
-  #endif
-#else
-  #define X_STOP_PIN                        PC1   // X-STOP
-#endif
+// #ifdef X_STALL_SENSITIVITY
+//   #define X_STOP_PIN                  X_DIAG_PIN
+//   #if X_HOME_TO_MIN
+//     #define X_MAX_PIN                       PC2   // E0DET
+//   #else
+//     #define X_MIN_PIN                       PC2   // E0DET
+//   #endif
+// #elif ENABLED(X_DUAL_ENDSTOPS)
+//   #ifndef X_MIN_PIN
+//     #define X_MIN_PIN                       PC1   // X-STOP
+//   #endif
+//   #ifndef X_MAX_PIN
+//     #define X_MAX_PIN                       PC2   // E0DET
+//   #endif
+// #else
+//   #define X_STOP_PIN                        PC1   // X-STOP
+// #endif
 
-#ifdef Y_STALL_SENSITIVITY
-  #define Y_STOP_PIN                  Y_DIAG_PIN
-  #if Y_HOME_TO_MIN
-    #define Y_MAX_PIN                       PA0   // E1DET
-  #else
-    #define Y_MIN_PIN                       PA0   // E1DET
-  #endif
-#elif ENABLED(Y_DUAL_ENDSTOPS)
-  #ifndef Y_MIN_PIN
-    #define Y_MIN_PIN                       PC3   // Y-STOP
-  #endif
-  #ifndef Y_MAX_PIN
-    #define Y_MAX_PIN                       PA0   // E1DET
-  #endif
-#else
-  #define Y_STOP_PIN                        PC3   // Y-STOP
-#endif
+// #ifdef Y_STALL_SENSITIVITY
+//   #define Y_STOP_PIN                  Y_DIAG_PIN
+//   #if Y_HOME_TO_MIN
+//     #define Y_MAX_PIN                       PA0   // E1DET
+//   #else
+//     #define Y_MIN_PIN                       PA0   // E1DET
+//   #endif
+// #elif ENABLED(Y_DUAL_ENDSTOPS)
+//   #ifndef Y_MIN_PIN
+//     #define Y_MIN_PIN                       PC3   // Y-STOP
+//   #endif
+//   #ifndef Y_MAX_PIN
+//     #define Y_MAX_PIN                       PA0   // E1DET
+//   #endif
+// #else
+//   #define Y_STOP_PIN                        PC3   // Y-STOP
+// #endif
 
-#ifdef Z_STALL_SENSITIVITY
-  #define Z_STOP_PIN                  Z_DIAG_PIN
-  #if Z_HOME_TO_MIN
-    #define Z_MAX_PIN                       PC15  // PWRDET
-  #else
-    #define Z_MIN_PIN                       PC15  // PWRDET
-  #endif
-#elif ENABLED(Z_MULTI_ENDSTOPS)
-  #ifndef Z_MIN_PIN
-    #define Z_MIN_PIN                       PC0   // Z-STOP
-  #endif
-  #ifndef Z_MAX_PIN
-    #define Z_MAX_PIN                       PC15  // PWRDET
-  #endif
-#else
-  #ifndef Z_STOP_PIN
-    #define Z_STOP_PIN                      PC0   // Z-STOP
-  #endif
-#endif
+// #ifdef Z_STALL_SENSITIVITY
+//   #define Z_STOP_PIN                  Z_DIAG_PIN
+//   #if Z_HOME_TO_MIN
+//     #define Z_MAX_PIN                       PC15  // PWRDET
+//   #else
+//     #define Z_MIN_PIN                       PC15  // PWRDET
+//   #endif
+// #elif ENABLED(Z_MULTI_ENDSTOPS)
+//   #ifndef Z_MIN_PIN
+//     #define Z_MIN_PIN                       PC0   // Z-STOP
+//   #endif
+//   #ifndef Z_MAX_PIN
+//     #define Z_MAX_PIN                       PC15  // PWRDET
+//   #endif
+// #else
+//   #ifndef Z_STOP_PIN
+//     #define Z_STOP_PIN                      PC0   // Z-STOP
+//   #endif
+// #endif
 
 //
 // Z Probe (when not Z_MIN_PIN)

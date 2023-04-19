@@ -26,6 +26,8 @@
 
 #include "../../inc/MarlinConfig.h"
 #include "../shared/Delay.h"
+#include "../../module/motion.h"
+#include "../../module/planner.h"
 
 #include "usb_serial.h"
 
@@ -62,12 +64,8 @@ uint16_t MarlinHAL::adc_result;
   extern void install_min_serial();
 #endif
 extern uint8_t strobe_sync_pulse;
-void reset_U1(){
-if(strobe_sync_pulse)strobe_sync_pulse--;
-else OUT_WRITE(SYNC_PIN,0);
 
 
-}
 // HAL initialization task
 void MarlinHAL::init() {
   // Ensure F_CPU is a constant expression.
@@ -77,9 +75,12 @@ void MarlinHAL::init() {
   UNUSED(cpuFreq);
   SERIAL_ECHOLN(CUSTOM_MACHINE_NAME);
   SET_OUTPUT(SYNC_PIN);
-  OUT_WRITE(SYNC_PIN,0);
-  SET_INPUT_PULLDOWN(DOGHEEL_PIN);
-
+  OUT_WRITE(SYNC_PIN, 1);
+  SET_INPUT(x_rack1);
+  SET_INPUT(x_rack2);
+  SET_INPUT(y_rack1);
+  SET_INPUT(y_onstage);
+  SET_INPUT(y_understage);
   #if ENABLED(SDSUPPORT) && DISABLED(SDIO_SUPPORT) && (defined(SDSS) && SDSS != -1)
     OUT_WRITE(SDSS, HIGH); // Try to set SDSS inactive before any other SPI users start up
   #endif
@@ -120,6 +121,22 @@ void MarlinHAL::idletask() {
     CDC_resume_receive();
     CDC_continue_transmit();
   #endif
+
+
+  if(seek_endstop_flag == true){
+    if(seek_endstop_axis == X_AXIS){
+      if(READ(seek_limit_name) == true){
+        planner.endstop_triggered(X_AXIS);
+        seek_endstop_flag = false;
+      }
+    }
+    else if(seek_endstop_axis == Y_AXIS){
+      if(READ(seek_limit_name) == true){
+        planner.endstop_triggered(Y_AXIS);
+        seek_endstop_flag = false;
+      }
+    }
+  }
 }
 
 void MarlinHAL::reboot() { NVIC_SystemReset(); }
@@ -186,7 +203,6 @@ volatile uint32_t systick_uptime_millis = 0;
 systickCallback_t systick_user_callback;
 void systick_attach_callback(systickCallback_t cb) { systick_user_callback = cb; }
 void HAL_SYSTICK_Callback() {
-  reset_U1();
   systick_uptime_millis++;
   if (systick_user_callback) systick_user_callback();
 }

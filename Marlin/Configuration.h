@@ -136,7 +136,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens_6"
+#define CUSTOM_MACHINE_NAME "Morpholens-240_loader"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -167,13 +167,13 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
-//#define J_DRIVER_TYPE  A4988
+#define I_DRIVER_TYPE  A4988
+#define J_DRIVER_TYPE  A4988
 //#define K_DRIVER_TYPE  A4988
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
-#define E0_DRIVER_TYPE A4988
+// #define E0_DRIVER_TYPE A4988
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -1099,18 +1099,18 @@
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
 #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
-// #define USE_ZMIN_PLUG
-#define USE_IMIN_PLUG
+#define USE_ZMIN_PLUG
+// #define USE_IMIN_PLUG
 //#define USE_JMIN_PLUG
 //#define USE_KMIN_PLUG
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
 //#define USE_WMIN_PLUG
-//#define USE_XMAX_PLUG
-//#define USE_YMAX_PLUG
-#define USE_ZMAX_PLUG
-//#define USE_IMAX_PLUG
-//#define USE_JMAX_PLUG
+#define USE_XMAX_PLUG
+#define USE_YMAX_PLUG
+// #define USE_ZMAX_PLUG
+#define USE_IMAX_PLUG
+#define USE_JMAX_PLUG
 //#define USE_KMAX_PLUG
 //#define USE_UMAX_PLUG
 //#define USE_VMAX_PLUG
@@ -1230,20 +1230,31 @@
  * total number of extruders, the last value applies to the rest.
  */
 //#define DISTINCT_E_FACTORS
-
+#define X_TMC_CURRENT 1200
+#define Y_TMC_CURRENT 1600
+#define Z_TMC_CURRENT 600
+#define I_TMC_CURRENT 600
+#define J_TMC_CURRENT 1000
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
 #define Z_MICROSTEPPING 16
-#define X_LEADSCREW_PITCH 8.0    //mm_per_revolution
-#define Y_LEADSCREW_PITCH 8.0    //mm_per_revolution
-#define Z_LEADSCREW_PITCH 8.0    //mm_per_revolution
-#define Z_LEVER_REDUCTION   42
+#define I_MICROSTEPPING 16
+#define J_MICROSTEPPING 16
+#define GATE_MICROSTEPPING 16
+#define SERVO_MICROSTEPPING 4
+#define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
+#define Y_BELT_PITCH  2.0
+#define Y_PULLEY_TEETH 16       //total teeth count
+#define Z_LEADSCREW_PITCH 14.0    //mm_per_revolution
+#define GATE_LEADSCREW_PITCH 14.0
 
 #define X_STEPS_PER_UNIT (X_MICROSTEPPING*motor_1_8_DEGREE)/(X_LEADSCREW_PITCH)
-#define Y_STEPS_PER_UNIT (Y_MICROSTEPPING*motor_1_8_DEGREE)/(Y_LEADSCREW_PITCH)
-#define Z_STEPS_PER_UNIT (Z_LEVER_REDUCTION*Z_MICROSTEPPING*motor_1_8_DEGREE)/(Z_LEADSCREW_PITCH)
-
+#define Y_STEPS_PER_UNIT (Y_MICROSTEPPING*motor_1_8_DEGREE)/(Y_BELT_PITCH*Y_PULLEY_TEETH)
+#define Z_STEPS_PER_UNIT (Z_MICROSTEPPING*motor_1_8_DEGREE)/(Z_LEADSCREW_PITCH)
+#define BACK_GATE_STEPS_PER_UNIT (GATE_MICROSTEPPING*motor_1_8_DEGREE)/(GATE_LEADSCREW_PITCH)
+#define FRONT_GATE_STEPS_PER_UNIT (GATE_MICROSTEPPING*motor_1_8_DEGREE)/(GATE_LEADSCREW_PITCH)
+#define SERVO_REPLACEMENT_STEPS_PER_UNIT (SERVO_MICROSTEPPING*motor_1_8_DEGREE)/(800)
 /**
  * Default Axis Steps Per Unit (linear=steps/mm, rotational=steps/°)
  * Override with M92
@@ -1251,14 +1262,14 @@
  */
 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
 //Morphle Kinematics 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {X_STEPS_PER_UNIT, Y_STEPS_PER_UNIT, Z_STEPS_PER_UNIT}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {X_STEPS_PER_UNIT, Y_STEPS_PER_UNIT, Z_STEPS_PER_UNIT, BACK_GATE_STEPS_PER_UNIT, FRONT_GATE_STEPS_PER_UNIT }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 100, 100, 1}
+#define DEFAULT_MAX_FEEDRATE          { 2400, 2400, 2400, 240, 240 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1271,7 +1282,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 450, 450, 50}
+#define DEFAULT_MAX_ACCELERATION      { 400, 400, 400, 100, 100 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1702,8 +1713,8 @@
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
-//#define I_ENABLE_ON 0
-//#define J_ENABLE_ON 0
+#define I_ENABLE_ON 0
+#define J_ENABLE_ON 0
 //#define K_ENABLE_ON 0
 //#define U_ENABLE_ON 0
 //#define V_ENABLE_ON 0
@@ -1714,8 +1725,8 @@
 #define DISABLE_X false
 #define DISABLE_Y false
 #define DISABLE_Z false
-//#define DISABLE_I
-//#define DISABLE_J
+#define DISABLE_I
+#define DISABLE_J
 //#define DISABLE_K
 //#define DISABLE_U
 //#define DISABLE_V
@@ -1726,7 +1737,7 @@
 
 // @section extruder
 
-//#define DISABLE_E               // Disable the extruder when not stepping
+#define DISABLE_E               // Disable the extruder when not stepping
 #define DISABLE_OTHER_EXTRUDERS   // Keep only the active extruder enabled
 
 // @section motion
@@ -1735,8 +1746,8 @@
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR true
-//#define INVERT_I_DIR false
-//#define INVERT_J_DIR false
+#define INVERT_I_DIR true
+#define INVERT_J_DIR true
 //#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
 //#define INVERT_V_DIR false
@@ -1774,10 +1785,10 @@
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
 #define X_HOME_DIR -1
-#define Y_HOME_DIR -1
-#define Z_HOME_DIR 1
-//#define I_HOME_DIR -1
-//#define J_HOME_DIR -1
+#define Y_HOME_DIR 1
+#define Z_HOME_DIR -1
+#define I_HOME_DIR 1
+#define J_HOME_DIR 1
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
@@ -1786,9 +1797,11 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 254
-#define Y_BED_SIZE 92.5
-#define Z_MAX_LEN -3.75
+#define X_BED_SIZE  310
+#define Y_BED_SIZE  450
+#define Z_MAX_LEN   260
+#define I_STROKE    135
+#define J_STROKE    235
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1797,10 +1810,10 @@
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 0
-//#define I_MIN_POS 0
-//#define I_MAX_POS 50
-//#define J_MIN_POS 0
-//#define J_MAX_POS 50
+#define I_MIN_POS 0
+#define I_MAX_POS I_STROKE
+#define J_MIN_POS 0
+#define J_MAX_POS J_STROKE
 //#define K_MIN_POS 0
 //#define K_MAX_POS 50
 //#define U_MIN_POS 0
@@ -2260,11 +2273,13 @@
 #define HOMING_FEEDRATE_X  (75*60)
 #define HOMING_FEEDRATE_Y  (75*60)
 #define HOMING_FEEDRATE_Z  (0.5*60)
-#define HOMING_FEEDRATE_A (10*60)
+#define HOMING_FEEDRATE_A (50*60)
+#define HOMING_FEEDRATE_B (60*60)
+#define HOMING_FEEDRATE_C (50*60)
 
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { HOMING_FEEDRATE_X, HOMING_FEEDRATE_Y, HOMING_FEEDRATE_Z}
+#define HOMING_FEEDRATE_MM_M { HOMING_FEEDRATE_X, HOMING_FEEDRATE_Y, HOMING_FEEDRATE_Z, HOMING_FEEDRATE_A, HOMING_FEEDRATE_B }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

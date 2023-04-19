@@ -908,21 +908,25 @@
  */
 
 //#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }  // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
-#define X_BUMP              1
-#define Y_BUMP              1
-#define Z_BUMP              1/(Z_LEVER_REDUCTION*0.75) //because of lever in Z
-#define SENSOR_HALFWAY      2.5
-#define HOMING_X_BUMP       5.2-SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
-#define HOMING_Y_BUMP       6.9-SENSOR_HALFWAY
-#define HOMING_Z_BUMP       (10-SENSOR_HALFWAY)/(Z_LEVER_REDUCTION*0.75)
+#define X_BUMP              2
+#define Y_BUMP              2
+#define Z_BUMP              2
+#define A_BUMP              2
+#define B_BUMP              2
+#define SENSOR_HALFWAY      (2.5 - 0.25) //tolerance of 0.25mm added
+#define HOMING_X_BUMP       10 - SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
+#define HOMING_Y_BUMP       4 - SENSOR_HALFWAY
+#define HOMING_Z_BUMP       2.6-SENSOR_HALFWAY
+#define HOMING_A_BUMP       5.0-SENSOR_HALFWAY
+#define HOMING_B_BUMP       6.5-SENSOR_HALFWAY
 
-#define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP }       // (mm) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR { 2, 2, 1 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-#define HOMING_BACKOFF_POST_MM { X_BUMP, Y_BUMP, Z_BUMP }       // (mm) Backoff X after homing Y, and vice-versa
+#define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP, HOMING_A_BUMP, HOMING_B_BUMP  }       // (mm) Backoff from endstops after first bump
+#define HOMING_BUMP_DIVISOR { 2, 2, 2, 2, 2 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BACKOFF_POST_MM { X_BUMP, Y_BUMP, Z_BUMP, A_BUMP, B_BUMP  }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
-#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
+// #define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
 // @section bltouch
@@ -1132,18 +1136,19 @@
   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
 #endif
 
-#define AXIS_RELATIVE_MODES { false, false, false }
+#define AXIS_RELATIVE_MODES { HIGH, HIGH, HIGH ,HIGH,HIGH }
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
 
 // By default stepper drivers require an active-HIGH signal but some high-power drivers require an active-LOW signal to step.
-#define STEP_STATE_X LOW
-#define STEP_STATE_Y LOW
-#define STEP_STATE_Z LOW
-// #define STEP_STATE_I HIGH
-// #define STEP_STATE_J HIGH
-// #define STEP_STATE_K HIGH
+#define X_STEP_PIN HIGH
+#define Y_STEP_PIN HIGH
+#define Z_STEP_PIN HIGH
+#define I_STEP_PIN HIGH
+#define J_STEP_PIN HIGH
+#define K_STEP_PIN HIGH
+#define E_STEP_PIN HIGH
 // #define STEP_STATE_U HIGH
 // #define STEP_STATE_V HIGH
 // #define STEP_STATE_W HIGH
@@ -1158,13 +1163,13 @@
 #define DISABLE_IDLE_X LOW
 #define DISABLE_IDLE_Y LOW
 #define DISABLE_IDLE_Z LOW   // Disable if the nozzle could fall onto your printed part!
-//#define DISABLE_IDLE_I
-//#define DISABLE_IDLE_J
+#define DISABLE_IDLE_I HIGH
+#define DISABLE_IDLE_J HIGH
 //#define DISABLE_IDLE_K
 //#define DISABLE_IDLE_U
 //#define DISABLE_IDLE_V
 //#define DISABLE_IDLE_W
-#define DISABLE_IDLE_E    // Shut down all idle extruders
+#define DISABLE_IDLE_E HIGH   // Shut down all idle extruders
 
 // Default Minimum Feedrates for printing and travel moves
 #define DEFAULT_MINIMUMFEEDRATE       0.0     // (mm/s. °/s for rotational-only moves) Minimum feedrate. Set with M205 S.
