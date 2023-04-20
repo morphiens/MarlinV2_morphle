@@ -324,19 +324,19 @@ void Endstops::event_handler() {
     #define ENDSTOP_HIT_TEST_V() _ENDSTOP_HIT_TEST(V,'V')
     #define ENDSTOP_HIT_TEST_W() _ENDSTOP_HIT_TEST(W,'W')
 
-    SERIAL_ECHO_START();
-    SERIAL_ECHOPGM(STR_ENDSTOPS_HIT);
-    NUM_AXIS_CODE(
-       ENDSTOP_HIT_TEST_X(),
-       ENDSTOP_HIT_TEST_Y(),
-       ENDSTOP_HIT_TEST_Z(),
-      _ENDSTOP_HIT_TEST(I,'I'),
-      _ENDSTOP_HIT_TEST(J,'J'),
-      _ENDSTOP_HIT_TEST(K,'K'),
-      _ENDSTOP_HIT_TEST(U,'U'),
-      _ENDSTOP_HIT_TEST(V,'V'),
-      _ENDSTOP_HIT_TEST(W,'W')
-    );
+    // SERIAL_ECHO_START();
+    // SERIAL_ECHOPGM(STR_ENDSTOPS_HIT);
+    // NUM_AXIS_CODE(
+    //    ENDSTOP_HIT_TEST_X(),
+    //    ENDSTOP_HIT_TEST_Y(),
+    //    ENDSTOP_HIT_TEST_Z(),
+    //   _ENDSTOP_HIT_TEST(I,'I'),
+    //   _ENDSTOP_HIT_TEST(J,'J'),
+    //   _ENDSTOP_HIT_TEST(K,'K'),
+    //   _ENDSTOP_HIT_TEST(U,'U'),
+    //   _ENDSTOP_HIT_TEST(V,'V'),
+    //   _ENDSTOP_HIT_TEST(W,'W')
+    // );
 
     #if USES_Z_MIN_PROBE_PIN
       #define P_AXIS Z_AXIS
@@ -399,7 +399,7 @@ void __O2 Endstops::report_states() {
   print_morphle_limit_state((char*)"y_understage", y_understage);
   print_morphle_limit_state((char*)"backgate_home", backgate_home);
   print_morphle_limit_state((char*)"frontgate_home", frontgate_home);
-  print_morphle_limit_state((char*)"Dogheel", DOGHEEL_PIN);
+  // print_morphle_limit_state((char*)"Dogheel", DOGHEEL_PIN);
   // #define ES_REPORT(S) print_es_state(READ_ENDSTOP(S##_PIN) == S##_ENDSTOP_HIT_STATE, F(STR_##S))
   #define ES_REPORT(S) ((void)0)
   #if HAS_X_MIN

@@ -1142,13 +1142,19 @@
 //#define MULTI_NOZZLE_DUPLICATION
 
 // By default stepper drivers require an active-HIGH signal but some high-power drivers require an active-LOW signal to step.
-#define X_STEP_PIN HIGH
-#define Y_STEP_PIN HIGH
-#define Z_STEP_PIN HIGH
-#define I_STEP_PIN HIGH
-#define J_STEP_PIN HIGH
-#define K_STEP_PIN HIGH
-#define E_STEP_PIN HIGH
+// #define X_STEP_PIN HIGH
+// #define Y_STEP_PIN HIGH
+// #define Z_STEP_PIN HIGH
+// #define I_STEP_PIN HIGH
+// #define J_STEP_PIN HIGH
+#define STEP_STATE_X HIGH
+#define STEP_STATE_Y HIGH
+#define STEP_STATE_Z HIGH
+#define STEP_STATE_I HIGH
+#define STEP_STATE_J HIGH
+
+// #define K_STEP_PIN HIGH
+// #define E_STEP_PIN HIGH
 // #define STEP_STATE_U HIGH
 // #define STEP_STATE_V HIGH
 // #define STEP_STATE_W HIGH
@@ -2853,9 +2859,9 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(I)
-    #define I_CURRENT      800
+    #define I_CURRENT      I_TMC_CURRENT
     #define I_CURRENT_HOME I_CURRENT
-    #define I_MICROSTEPS    16
+    #define I_MICROSTEPS    I_MICROSTEPPING
     #define I_RSENSE         0.11
     #define I_CHAIN_POS     -1
     //#define I_INTERPOLATE  true
@@ -2863,9 +2869,9 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(J)
-    #define J_CURRENT      800
+    #define J_CURRENT      J_TMC_CURRENT
     #define J_CURRENT_HOME J_CURRENT
-    #define J_MICROSTEPS    16
+    #define J_MICROSTEPS    J_MICROSTEPPING
     #define J_RSENSE         0.11
     #define J_CHAIN_POS     -1
     //#define J_INTERPOLATE  true
@@ -3079,7 +3085,7 @@
    */
   #if HAS_STEALTHCHOP
     // #define STEALTHCHOP_XY
-    // #define STEALTHCHOP_Z
+    #define STEALTHCHOP_Z
     #define STEALTHCHOP_I
     #define STEALTHCHOP_J
     #define STEALTHCHOP_K

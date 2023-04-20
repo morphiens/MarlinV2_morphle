@@ -913,7 +913,7 @@ void kill(FSTR_P const lcd_error/*=nullptr*/, FSTR_P const lcd_component/*=nullp
     hostui.kill();
   #endif
 
-  minkill(steppers_off);
+  // minkill(steppers_off);
   stop();
   restart_machine();
 }
