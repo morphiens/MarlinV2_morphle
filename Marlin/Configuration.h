@@ -136,7 +136,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens_6"
+#define CUSTOM_MACHINE_NAME "Morpholens-240_scanner"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -173,7 +173,7 @@
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
-#define E0_DRIVER_TYPE A4988
+// #define E0_DRIVER_TYPE A4988
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -1097,16 +1097,16 @@
 // Specify here all the endstop connectors that are connected to any endstop or probe.
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-#define USE_XMIN_PLUG
+// #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
 // #define USE_ZMIN_PLUG
-#define USE_IMIN_PLUG
+// #define USE_IMIN_PLUG
 //#define USE_JMIN_PLUG
 //#define USE_KMIN_PLUG
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
 //#define USE_WMIN_PLUG
-//#define USE_XMAX_PLUG
+#define USE_XMAX_PLUG
 //#define USE_YMAX_PLUG
 #define USE_ZMAX_PLUG
 //#define USE_IMAX_PLUG
@@ -1230,13 +1230,15 @@
  * total number of extruders, the last value applies to the rest.
  */
 //#define DISTINCT_E_FACTORS
-
+#define X_TMC_CURRENT 1000
+#define Y_TMC_CURRENT 1000
+#define Z_TMC_CURRENT 1000
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
 #define Z_MICROSTEPPING 16
-#define X_LEADSCREW_PITCH 8.0    //mm_per_revolution
-#define Y_LEADSCREW_PITCH 8.0    //mm_per_revolution
+#define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
+#define Y_LEADSCREW_PITCH 14.0    //mm_per_revolution
 #define Z_LEADSCREW_PITCH 8.0    //mm_per_revolution
 #define Z_LEVER_REDUCTION   42
 
@@ -1357,7 +1359,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+// #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 //#define USE_PROBE_FOR_Z_HOMING
@@ -1773,7 +1775,7 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR -1
+#define X_HOME_DIR 1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR 1
 //#define I_HOME_DIR -1
@@ -1786,9 +1788,9 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 254
-#define Y_BED_SIZE 92.5
-#define Z_MAX_LEN -3.75
+#define X_BED_SIZE 250
+#define Y_BED_SIZE 170
+#define Z_MAX_LEN -3.6
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0

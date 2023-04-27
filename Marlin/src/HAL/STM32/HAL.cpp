@@ -79,6 +79,9 @@ void MarlinHAL::init() {
   SET_OUTPUT(SYNC_PIN);
   OUT_WRITE(SYNC_PIN,0);
   SET_INPUT_PULLDOWN(DOGHEEL_PIN);
+  SET_INPUT_PULLDOWN(PUSHERX_PIN);
+  SET_INPUT_PULLDOWN(PUSHERY_PIN);
+  
 
   #if ENABLED(SDSUPPORT) && DISABLED(SDIO_SUPPORT) && (defined(SDSS) && SDSS != -1)
     OUT_WRITE(SDSS, HIGH); // Try to set SDSS inactive before any other SPI users start up

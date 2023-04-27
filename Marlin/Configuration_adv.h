@@ -908,9 +908,9 @@
  */
 
 //#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }  // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
-#define X_BUMP              1
-#define Y_BUMP              1
-#define Z_BUMP              1/(Z_LEVER_REDUCTION*0.75) //because of lever in Z
+#define X_BUMP              2
+#define Y_BUMP              2 //Check the 
+#define Z_BUMP              2/(Z_LEVER_REDUCTION*0.75) //because of lever in Z
 #define SENSOR_HALFWAY      2.5
 #define HOMING_X_BUMP       5.2-SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
 #define HOMING_Y_BUMP       6.9-SENSOR_HALFWAY
@@ -922,7 +922,7 @@
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
-#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
+// #define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
 // @section bltouch
