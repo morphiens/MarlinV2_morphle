@@ -1136,7 +1136,7 @@
   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
 #endif
 
-#define AXIS_RELATIVE_MODES { HIGH, HIGH, HIGH ,HIGH,HIGH }
+#define AXIS_RELATIVE_MODES { LOW, LOW, LOW ,LOW,LOW }
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -1147,7 +1147,7 @@
 #define STEP_STATE_Y LOW
 #define STEP_STATE_Z LOW
 #define STEP_STATE_I LOW
-#define STEP_STATE_J LOW 
+#define STEP_STATE_J LOW
 
 // #define K_STEP_PIN HIGH
 // #define E_STEP_PIN HIGH
@@ -1162,11 +1162,11 @@
  * The default timeout duration can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
 #define DEFAULT_STEPPER_TIMEOUT_SEC 0
-#define DISABLE_IDLE_X LOW
-#define DISABLE_IDLE_Y LOW
-#define DISABLE_IDLE_Z LOW   // Disable if the nozzle could fall onto your printed part!
-#define DISABLE_IDLE_I HIGH
-#define DISABLE_IDLE_J HIGH
+#define DISABLE_IDLE_X HIGH
+#define DISABLE_IDLE_Y HIGH
+#define DISABLE_IDLE_Z HIGH   // Disable if the nozzle could fall onto your printed part!
+#define DISABLE_IDLE_I LOW
+#define DISABLE_IDLE_J LOW
 //#define DISABLE_IDLE_K
 //#define DISABLE_IDLE_U
 //#define DISABLE_IDLE_V

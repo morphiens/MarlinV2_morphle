@@ -1737,7 +1737,7 @@
 
 // @section extruder
 
-#define DISABLE_E               // Disable the extruder when not stepping
+#define DISABLE_E false              // Disable the extruder when not stepping
 #define DISABLE_OTHER_EXTRUDERS   // Keep only the active extruder enabled
 
 // @section motion
@@ -1847,7 +1847,7 @@
 #endif
 
 // Max software endstops constrain movement within maximum coordinate bounds
-#define MAX_SOFTWARE_ENDSTOPS
+// #define MAX_SOFTWARE_ENDSTOPS
 #if ENABLED(MAX_SOFTWARE_ENDSTOPS)
   #define MAX_SOFTWARE_ENDSTOP_X
   #define MAX_SOFTWARE_ENDSTOP_Y
@@ -2269,10 +2269,10 @@
 
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (75*60)
-#define HOMING_FEEDRATE_X  (75*60)
-#define HOMING_FEEDRATE_Y  (75*60)
-#define HOMING_FEEDRATE_Z  (0.5*60)
+#define HOMING_FEEDRATE_XY (35*60)
+#define HOMING_FEEDRATE_X  (35*60)
+#define HOMING_FEEDRATE_Y  (35*60)
+#define HOMING_FEEDRATE_Z  (35*60)
 #define HOMING_FEEDRATE_A (50*60)
 #define HOMING_FEEDRATE_B (60*60)
 #define HOMING_FEEDRATE_C (50*60)
@@ -2374,9 +2374,9 @@
 // When enabled Marlin will send a busy status message to the host
 // every couple of seconds when it can't accept commands.
 //
-#define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
-#define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
-#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
+// #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
+// #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
+// #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 // @section units
 
