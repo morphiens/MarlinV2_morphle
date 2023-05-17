@@ -136,7 +136,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens_6"
+#define CUSTOM_MACHINE_NAME "Morpholens_1"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1258,7 +1258,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 100, 100, 1}
+#define DEFAULT_MAX_FEEDRATE          { 65, 65, 1}
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1786,9 +1786,9 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 254
-#define Y_BED_SIZE 92.5
-#define Z_MAX_LEN -3.75
+#define X_BED_SIZE 72
+#define Y_BED_SIZE 58
+#define Z_MAX_LEN -3.70
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -2256,9 +2256,9 @@
 
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (75*60)
-#define HOMING_FEEDRATE_X  (75*60)
-#define HOMING_FEEDRATE_Y  (75*60)
+#define HOMING_FEEDRATE_XY (35*60)
+#define HOMING_FEEDRATE_X  (35*60)
+#define HOMING_FEEDRATE_Y  (35*60)
 #define HOMING_FEEDRATE_Z  (0.5*60)
 #define HOMING_FEEDRATE_A (10*60)
 
@@ -2359,9 +2359,9 @@
 // When enabled Marlin will send a busy status message to the host
 // every couple of seconds when it can't accept commands.
 //
-#define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
-#define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
-#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
+// #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
+// #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
+// #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 // @section units
 
