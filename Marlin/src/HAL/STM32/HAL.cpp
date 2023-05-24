@@ -26,8 +26,11 @@
 
 #include "../../inc/MarlinConfig.h"
 #include "../shared/Delay.h"
+#include "../../module/motion.h"
+#include "../../module/planner.h"
 
 #include "usb_serial.h"
+// #include "Marlin/src/module/planner.h"
 
 #ifdef USBCON
   DefaultSerial1 MSerialUSB(false, SerialUSB);
@@ -78,9 +81,9 @@ void MarlinHAL::init() {
   SERIAL_ECHOLN(CUSTOM_MACHINE_NAME);
   SET_OUTPUT(SYNC_PIN);
   OUT_WRITE(SYNC_PIN,0);
-  SET_INPUT_PULLDOWN(DOGHEEL_PIN);
-  SET_INPUT_PULLDOWN(PUSHERX_PIN);
-  SET_INPUT_PULLDOWN(PUSHERY_PIN);
+  SET_INPUT(DOGHEEL_PIN);
+  SET_INPUT(PUSHERX_PIN);
+  SET_INPUT(PUSHERY_PIN);
   
 
   #if ENABLED(SDSUPPORT) && DISABLED(SDIO_SUPPORT) && (defined(SDSS) && SDSS != -1)
@@ -123,6 +126,20 @@ void MarlinHAL::idletask() {
     CDC_resume_receive();
     CDC_continue_transmit();
   #endif
+    if(seek_endstop_flag == true){
+    if(seek_endstop_axis == X_AXIS){
+      if(READ(seek_limit_name) == true){
+        planner.endstop_triggered(X_AXIS);
+        seek_endstop_flag = false;
+      }
+    }
+    else if(seek_endstop_axis == Y_AXIS){
+      if(READ(seek_limit_name) == true){
+        planner.endstop_triggered(Y_AXIS);
+        seek_endstop_flag = false;
+      }
+    }
+  }
 }
 
 void MarlinHAL::reboot() { NVIC_SystemReset(); }

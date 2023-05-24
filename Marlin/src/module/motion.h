@@ -29,7 +29,10 @@
  */
 
 #include "../inc/MarlinConfig.h"
-
+extern bool seek_endstop_flag;
+extern AxisEnum seek_endstop_axis;
+extern uint8_t seek_limit_name;
+void seek_endstops(const AxisEnum axis, uint8_t limit_name, float limit_position);
 #if IS_SCARA
   #include "scara.h"
 #elif ENABLED(POLAR)
