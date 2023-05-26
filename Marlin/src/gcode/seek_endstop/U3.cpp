@@ -19,7 +19,6 @@ void GcodeSuite::U3(){
             if (parser.seenval(axis_codes[i])) {
                 
                 const float l = parser.value_axis_units((AxisEnum)i);
-                SERIAL_ECHO_F(l,4);
                 if(l >35 && l < 41){
                    
                     seek_endstops(X_AXIS, PUSHERX_PIN, l);
@@ -32,7 +31,6 @@ void GcodeSuite::U3(){
             if (parser.seenval(axis_codes[i])) {
                 const float l = parser.value_axis_units((AxisEnum)i);
                 if(l >0 && l < 8){
-                    
                     seek_endstops(Y_AXIS, PUSHERY_PIN, l);
                 }
             }
