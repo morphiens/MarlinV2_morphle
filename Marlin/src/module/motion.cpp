@@ -1935,6 +1935,7 @@ void prepare_line_to_destination() {
     planner.set_machine_position_mm(current_position);
     
     update_workspace_offset(axis);
+    report_real_position();
     
     // report_current_position_projected();
   }
