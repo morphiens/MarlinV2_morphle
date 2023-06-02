@@ -69,9 +69,9 @@
 #define HAS_CASSETTE_DETECTION              true
 #define SYNC_PIN                            PC13
 
-#define x_home                              PC5  // X home
-#define y_home                              PE12 // Y home
-#define z_home                              PE11 // Z home
+#define x_home                              PC1  // X home
+#define y_home                              PC3 // Y home
+#define z_home                              PC0 // Z home
 #define x_rack1                             PB1  // X rack-1
 #define x_rack2                             PE9  // X rack-2
 #define y_rack1                             PE10 // Y rack-1
