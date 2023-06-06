@@ -69,9 +69,9 @@
 #define HAS_CASSETTE_DETECTION              true
 #define SYNC_PIN                            PC13
 
-#define x_home                              PC5  // X home
-#define y_home                              PE12 // Y home
-#define z_home                              PE11 // Z home
+#define x_home                              PC1  // X home
+#define y_home                              PC3 // Y home
+#define z_home                              PC0 // Z home
 #define x_rack1                             PB1  // X rack-1
 #define x_rack2                             PE9  // X rack-2
 #define y_rack1                             PE10 // Y rack-1
@@ -96,11 +96,11 @@
 //
 #define X_MIN_PIN                      x_home   // X endstop XHoming
 #define X_MAX_PIN                      x_rack2  // Horizontal rack 2nd LS
-#define Y_MIN_PIN                      y_understage   // YOnStage
-#define Y_MAX_PIN                      y_home  // Y endstop YHoming (on top)
+#define Y_MIN_PIN                      y_home   // YOnStage
+#define Y_MAX_PIN                      y_understage  // Y endstop YHoming (on top)
 #define Z_MIN_PIN                      z_home  // Z endstop
-#define I_MAX_PIN                      backgate_home   // Gate (endstop) LS for rack
-#define J_MAX_PIN                      frontgate_home
+#define I_MIN_PIN                      backgate_home   // Gate (endstop) LS for rack
+#define J_MIN_PIN                      frontgate_home
 
 
 

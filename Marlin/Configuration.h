@@ -136,7 +136,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Morpholens-240_loader"
+#define CUSTOM_MACHINE_NAME "Slide_loader_dev"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1098,19 +1098,19 @@
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
 #define USE_XMIN_PLUG
-// #define USE_YMIN_PLUG
+#define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
-// #define USE_IMIN_PLUG
-//#define USE_JMIN_PLUG
-//#define USE_KMIN_PLUG
+#define USE_IMIN_PLUG
+#define USE_JMIN_PLUG
+// #define USE_KMIN_PLUG
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
 //#define USE_WMIN_PLUG
 // #define USE_XMAX_PLUG
-#define USE_YMAX_PLUG
+// #define USE_YMAX_PLUG
 // #define USE_ZMAX_PLUG
-#define USE_IMAX_PLUG
-#define USE_JMAX_PLUG
+// #define USE_IMAX_PLUG
+// #define USE_JMAX_PLUG
 //#define USE_KMAX_PLUG
 //#define USE_UMAX_PLUG
 //#define USE_VMAX_PLUG
@@ -1232,15 +1232,15 @@
 //#define DISTINCT_E_FACTORS
 #define X_TMC_CURRENT 1200
 #define Y_TMC_CURRENT 1600
-#define Z_TMC_CURRENT 480
-#define I_TMC_CURRENT 480
+#define Z_TMC_CURRENT 1200
+#define I_TMC_CURRENT 1000
 #define J_TMC_CURRENT 1000
 #define motor_1_8_DEGREE 200.0  //steps_per_rot
 #define X_MICROSTEPPING 16
 #define Y_MICROSTEPPING 16
 #define Z_MICROSTEPPING 16
-#define I_MICROSTEPPING 16
-#define J_MICROSTEPPING 16
+#define I_MICROSTEPPING 0
+#define J_MICROSTEPPING 0
 #define GATE_MICROSTEPPING 16
 #define SERVO_MICROSTEPPING 4
 #define X_LEADSCREW_PITCH 14.0    //mm_per_revolution
@@ -1262,14 +1262,14 @@
  */
 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
 //Morphle Kinematics 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {X_STEPS_PER_UNIT, Y_STEPS_PER_UNIT, Z_STEPS_PER_UNIT, BACK_GATE_STEPS_PER_UNIT, FRONT_GATE_STEPS_PER_UNIT }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {400 ,400 ,400,0.55,0.55 }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 2400, 2400, 2400, 240, 240 }
+#define DEFAULT_MAX_FEEDRATE          { 2400, 2400, 2400, 2400, 2400 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1282,7 +1282,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 400, 400, 400, 100, 100 }
+#define DEFAULT_MAX_ACCELERATION      { 70,70, 70, 70, 70 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1746,7 +1746,7 @@
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR true
-#define INVERT_I_DIR true
+#define INVERT_I_DIR false
 #define INVERT_J_DIR true
 //#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
@@ -1785,10 +1785,10 @@
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
 #define X_HOME_DIR -1
-#define Y_HOME_DIR 1
+#define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-#define I_HOME_DIR 1
-#define J_HOME_DIR 1
+#define I_HOME_DIR -1
+#define J_HOME_DIR -1
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
@@ -1906,8 +1906,7 @@
   //#define FIL_RUNOUT4_PULLDOWN
 
   //#define FIL_RUNOUT5_STATE LOW
-  //#define FIL_RUNOUT5_PULLUP
-  //#define FIL_RUNOUT5_PULLDOWN
+  //#define FIL_RUNOUT5_PULLUPHOMEWN
 
   //#define FIL_RUNOUT6_STATE LOW
   //#define FIL_RUNOUT6_PULLUP
@@ -2273,8 +2272,8 @@
 #define HOMING_FEEDRATE_X  (35*60)
 #define HOMING_FEEDRATE_Y  (35*60)
 #define HOMING_FEEDRATE_Z  (35*60)
-#define HOMING_FEEDRATE_A (50*60)
-#define HOMING_FEEDRATE_B (60*60)
+#define HOMING_FEEDRATE_A (10*60)
+#define HOMING_FEEDRATE_B (10*60)
 #define HOMING_FEEDRATE_C (50*60)
 
 

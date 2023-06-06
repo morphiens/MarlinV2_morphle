@@ -1165,8 +1165,8 @@
 #define DISABLE_IDLE_X HIGH
 #define DISABLE_IDLE_Y HIGH
 #define DISABLE_IDLE_Z HIGH   // Disable if the nozzle could fall onto your printed part!
-#define DISABLE_IDLE_I LOW
-#define DISABLE_IDLE_J LOW
+#define DISABLE_IDLE_I HIGH 
+#define DISABLE_IDLE_J HIGH
 //#define DISABLE_IDLE_K
 //#define DISABLE_IDLE_U
 //#define DISABLE_IDLE_V
