@@ -389,7 +389,7 @@ static void print_morphle_limit_state(char* limit_name, uint8_t limit_pos){
 void __O2 Endstops::report_states() {
   TERN_(BLTOUCH, bltouch._set_SW_mode());
   SERIAL_ECHOLNPGM(STR_M119_REPORT);
-  print_morphle_limit_state((char*)"Dogheel", DOGHEEL_PIN);
+  if (HAS_DOGHEEL_DETECTION)  print_morphle_limit_state((char*)"Dogheel", DOGHEEL_PIN);
   #define ES_REPORT(S) print_es_state(READ_ENDSTOP(S##_PIN) == S##_ENDSTOP_HIT_STATE, F(STR_##S))
   #if HAS_X_MIN
     ES_REPORT(X_MIN);
