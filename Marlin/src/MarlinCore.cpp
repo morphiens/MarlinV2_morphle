@@ -913,7 +913,9 @@ void kill(FSTR_P const lcd_error/*=nullptr*/, FSTR_P const lcd_component/*=nullp
     hostui.kill();
   #endif
 
-  minkill(steppers_off);
+  // minkill(steppers_off);
+  stop();
+  restart_machine();
 }
 
 void minkill(const bool steppers_off/*=false*/) {
@@ -976,6 +978,17 @@ void stop() {
     LCD_MESSAGE(MSG_STOPPED);
     safe_delay(350);       // allow enough time for messages to get out before stopping
     marlin_state = MF_STOPPED;
+  }
+}
+
+/**
+ * @brief To Restart the machine after homing failed
+ * 
+ */
+void restart_machine(){
+  if (IsStopped()) {
+    safe_delay(350);       // allow enough time for messages to get out before reinitializing
+    marlin_state = MF_INITIALIZING;
   }
 }
 
