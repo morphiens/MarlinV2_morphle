@@ -911,14 +911,15 @@
 #define X_BUMP              1
 #define Y_BUMP              1
 #define Z_BUMP              1/(Z_LEVER_REDUCTION*0.75) //because of lever in Z
+#define A_BUMP              2
 #define SENSOR_HALFWAY      2.5
 #define HOMING_X_BUMP       5.2-SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
 #define HOMING_Y_BUMP       6.9-SENSOR_HALFWAY
 #define HOMING_Z_BUMP       (10-SENSOR_HALFWAY)/(Z_LEVER_REDUCTION*0.75)
 
-#define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP }       // (mm) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR { 2, 2, 1 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-#define HOMING_BACKOFF_POST_MM { X_BUMP, Y_BUMP, Z_BUMP }       // (mm) Backoff X after homing Y, and vice-versa
+#define HOMING_BUMP_MM      { HOMING_X_BUMP, HOMING_Y_BUMP, HOMING_Z_BUMP, A_BUMP }       // (mm) Backoff from endstops after first bump
+#define HOMING_BUMP_DIVISOR { 2, 2, 1, 2 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BACKOFF_POST_MM { X_BUMP, Y_BUMP, Z_BUMP, A_BUMP }       // (mm) Backoff X after homing Y, and vice-versa
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
@@ -1132,7 +1133,7 @@
   //#define SHAPING_MENU                // Add a menu to the LCD to set shaping parameters.
 #endif
 
-#define AXIS_RELATIVE_MODES { false, false, false }
+#define AXIS_RELATIVE_MODES { false, false, false, false }
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -1141,7 +1142,7 @@
 #define STEP_STATE_X LOW
 #define STEP_STATE_Y LOW
 #define STEP_STATE_Z LOW
-// #define STEP_STATE_I HIGH
+#define STEP_STATE_I LOW
 // #define STEP_STATE_J HIGH
 // #define STEP_STATE_K HIGH
 // #define STEP_STATE_U HIGH
@@ -1158,7 +1159,7 @@
 #define DISABLE_IDLE_X LOW
 #define DISABLE_IDLE_Y LOW
 #define DISABLE_IDLE_Z LOW   // Disable if the nozzle could fall onto your printed part!
-//#define DISABLE_IDLE_I
+#define DISABLE_IDLE_I LOW
 //#define DISABLE_IDLE_J
 //#define DISABLE_IDLE_K
 //#define DISABLE_IDLE_U
@@ -2768,9 +2769,9 @@
   #define INTERPOLATE      false
 
   #if AXIS_IS_TMC_CONFIG(X)
-    #define X_CURRENT       1000        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       X_TMC_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS     16        // 0..256
+    #define X_MICROSTEPS    X_MICROSTEPPING        // 0..256
     #define X_RSENSE          0.11     // Multiplied x1000 for TMC26X
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
     //#define X_INTERPOLATE  true      // Enable to override 'INTERPOLATE' for the X axis
@@ -2788,9 +2789,9 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Y)
-    #define Y_CURRENT       1000
+    #define Y_CURRENT       Y_TMC_CURRENT
     #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS     16
+    #define Y_MICROSTEPS    Y_MICROSTEPPING
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
     //#define Y_INTERPOLATE  true
@@ -2808,9 +2809,9 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z)
-    #define Z_CURRENT       1000
+    #define Z_CURRENT       Z_TMC_CURRENT
     #define Z_CURRENT_HOME  Z_CURRENT
-    #define Z_MICROSTEPS     16
+    #define Z_MICROSTEPS    Z_MICROSTEPPING
     #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
     //#define Z_INTERPOLATE  true
