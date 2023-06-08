@@ -913,7 +913,9 @@ void kill(FSTR_P const lcd_error/*=nullptr*/, FSTR_P const lcd_component/*=nullp
     hostui.kill();
   #endif
 
-  minkill(steppers_off);
+  // minkill(steppers_off);
+  stop();
+  restart_machine();
 }
 
 void minkill(const bool steppers_off/*=false*/) {
@@ -978,6 +980,14 @@ void stop() {
     marlin_state = MF_STOPPED;
   }
 }
+
+void restart_machine(){
+  if (IsStopped()) {
+    safe_delay(350);       // allow enough time for messages to get out before reinitializing
+    marlin_state = MF_INITIALIZING;
+  }
+}
+
 
 inline void tmc_standby_setup() {
   #if PIN_EXISTS(X_STDBY)
