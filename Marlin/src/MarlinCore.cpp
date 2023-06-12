@@ -988,7 +988,7 @@ void stop() {
 void restart_machine(){
   if (IsStopped()) {
     safe_delay(350);       // allow enough time for messages to get out before reinitializing
-    marlin_state = MF_INITIALIZING;
+    marlin_state = MF_RUNNING;
   }
 }
 
