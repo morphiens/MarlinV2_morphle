@@ -1097,7 +1097,7 @@
 // Specify here all the endstop connectors that are connected to any endstop or probe.
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-#define USE_XMIN_PLUG
+// #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
 #define USE_IMIN_PLUG
@@ -1106,7 +1106,7 @@
 //#define USE_UMIN_PLUG
 //#define USE_VMIN_PLUG
 //#define USE_WMIN_PLUG
-// #define USE_XMAX_PLUG
+#define USE_XMAX_PLUG
 // #define USE_YMAX_PLUG
 // #define USE_ZMAX_PLUG
 // #define USE_IMAX_PLUG
@@ -1262,7 +1262,7 @@
  */
 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
 //Morphle Kinematics 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {400 ,400 ,400,0.55,0.55 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {8.8 ,8.8 ,8.8,8.8,8.8 }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
@@ -1282,7 +1282,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 70,70, 70, 70, 70 }
+#define DEFAULT_MAX_ACCELERATION      { 400,400, 400, 400, 400 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1746,7 +1746,7 @@
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR true
-#define INVERT_I_DIR false
+#define INVERT_I_DIR true
 #define INVERT_J_DIR true
 //#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
@@ -1784,7 +1784,7 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR -1
+#define X_HOME_DIR 1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 #define I_HOME_DIR -1
@@ -1797,11 +1797,11 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE  310
-#define Y_BED_SIZE  450
-#define Z_MAX_LEN   260
-#define I_STROKE    135
-#define J_STROKE    235
+#define X_BED_SIZE  360
+#define Y_BED_SIZE  180
+#define Z_MAX_LEN   180
+#define I_STROKE    180
+#define J_STROKE    180
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0

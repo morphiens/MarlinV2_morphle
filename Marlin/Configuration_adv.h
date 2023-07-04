@@ -908,11 +908,11 @@
  */
 
 //#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }  // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
-#define X_BUMP              2
-#define Y_BUMP              2
-#define Z_BUMP              2
-#define A_BUMP              2
-#define B_BUMP              2
+#define X_BUMP              1
+#define Y_BUMP              1
+#define Z_BUMP              1
+#define A_BUMP              1
+#define B_BUMP              1
 #define SENSOR_HALFWAY      (2.5 - 0.25) //tolerance of 0.25mm added
 #define HOMING_X_BUMP       10 - SENSOR_HALFWAY //this is the distance the blocker is allowed physically to go in 
 #define HOMING_Y_BUMP       4 - SENSOR_HALFWAY
