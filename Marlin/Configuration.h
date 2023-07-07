@@ -1795,8 +1795,8 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 35
-#define Y_BED_SIZE 116
+#define X_BED_SIZE 36
+#define Y_BED_SIZE 128
 #define Z_MAX_LEN -3.45
 #define I_STROKE   ((360)*((float)(SWITCHER_GEAR_A)/(SWITCHER_GEAR_B)))
 
