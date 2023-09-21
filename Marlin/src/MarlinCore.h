@@ -84,3 +84,4 @@ bool pin_is_protected(const pin_t pin);
 #endif
 
 extern const char M112_KILL_STR[];
+void restart_machine();
